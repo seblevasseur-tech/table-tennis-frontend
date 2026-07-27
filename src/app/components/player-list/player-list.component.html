@@ -1,0 +1,63 @@
+<div class="player-list">
+  <div class="error-message" *ngIf="error">
+    {{ error }}
+  </div>
+
+  <form class="add-player-form" (ngSubmit)="addPlayer()">
+    <input
+      type="text"
+      name="name"
+      placeholder="Name"
+      [(ngModel)]="newPlayer.name"
+      required
+    />
+    <input
+      type="number"
+      name="rating"
+      placeholder="Rating"
+      [(ngModel)]="newPlayer.rating"
+      required
+    />
+    <button type="submit" class="btn-primary">Add</button>
+  </form>
+
+  <table class="players-table" *ngIf="players.length > 0; else noPlayers">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Rating</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let player of players" [class.editing]="editingId === player.id">
+        <td>{{ player.id }}</td>
+        <ng-container *ngIf="editingId === player.id; else viewMode">
+          <td>
+            <input type="text" name="editName" [(ngModel)]="editingPlayer.name" />
+          </td>
+          <td>
+            <input type="number" name="editRating" [(ngModel)]="editingPlayer.rating" />
+          </td>
+          <td>
+            <button class="btn-primary" (click)="updatePlayer(player)">Save</button>
+            <button class="btn-secondary" (click)="cancelEdit()">Cancel</button>
+          </td>
+        </ng-container>
+        <ng-template #viewMode>
+          <td>{{ player.name }}</td>
+          <td>{{ player.rating }}</td>
+          <td>
+            <button class="btn-secondary" (click)="startEdit(player)">Edit</button>
+            <button class="btn-danger" (click)="deletePlayer(player.id)">Delete</button>
+          </td>
+        </ng-template>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noPlayers>
+    <p class="no-players">No players yet</p>
+  </ng-template>
+</div>
