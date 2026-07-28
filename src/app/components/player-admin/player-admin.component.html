@@ -1,0 +1,42 @@
+<div class="admin-container">
+    <div class="form-header">
+        <h1>Espace Administration</h1>
+        <p>Ajouter un nouveau joueur à la base de données WTT</p>
+    </div>
+
+    <div class="error-message" *ngIf="error">
+        {{ error }}
+    </div>
+
+    <form class="add-player-card" (ngSubmit)="addPlayer()">
+        <div class="avatar-upload-top">
+            <label class="avatar-picker" title="Choisir une photo">
+                <img [src]="imagePreviewUrl || 'assets/default-avatar.jpg'" alt="Aperçu avatar" />
+                <div class="avatar-overlay">📷</div>
+                <input type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
+            </label>
+            <span class="avatar-hint">Cliquez pour ajouter une photo</span>
+        </div>
+
+        <div class="card-inputs">
+            <div class="input-group">
+                <label>Nom</label>
+                <input type="text" name="name" placeholder="ex: Harimoto" [(ngModel)]="createPlayerCommand.name" required />
+            </div>
+
+            <div class="input-group">
+                <label>Prénom</label>
+                <input type="text" name="forname" placeholder="ex: Tomokazu" [(ngModel)]="createPlayerCommand.forname" required />
+            </div>
+
+            <div class="input-group">
+                <label>Rang WTT</label>
+                <input type="number" name="rating" placeholder="ex: 4" [(ngModel)]="createPlayerCommand.rating" required />
+            </div>
+        </div>
+
+        <button type="submit" class="btn-spotify" [disabled]="isSubmitting">
+            {{ isSubmitting ? 'Enregistrement...' : 'Ajouter le joueur' }}
+        </button>
+    </form>
+</div>

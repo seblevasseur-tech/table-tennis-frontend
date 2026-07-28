@@ -1,0 +1,145 @@
+.admin-container {
+  max-width: 500px;
+  margin: 0 auto;
+
+  .form-header {
+    margin-bottom: 24px;
+    text-align: center;
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin: 0 0 6px 0;
+    }
+
+    p {
+      color: #b3b3b3;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+  }
+}
+
+.error-message {
+  background-color: #7f1d1d;
+  color: #fecaca;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.add-player-card {
+  background: #181818;
+  border-radius: 12px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .avatar-upload-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 24px;
+
+    .avatar-picker {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid #282828;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .avatar-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        font-size: 1.4rem;
+      }
+
+      &:hover .avatar-overlay {
+        opacity: 1;
+      }
+    }
+
+    .avatar-hint {
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: #b3b3b3;
+    }
+  }
+
+  .card-inputs {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+
+      label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #ffffff;
+      }
+
+      input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px;
+        background: #282828;
+        border: 1px solid transparent;
+        border-radius: 6px;
+        color: white;
+        font-size: 0.95rem;
+
+        &:focus {
+          outline: none;
+          border-color: #1ed760;
+        }
+      }
+    }
+  }
+
+  .btn-spotify {
+    width: 100%;
+    background-color: #1ed760;
+    color: #000000;
+    border: none;
+    padding: 14px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: transform 0.1s ease, background-color 0.2s;
+
+    &:hover {
+      background-color: #1fdf64;
+      transform: scale(1.02);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+  }
+}
