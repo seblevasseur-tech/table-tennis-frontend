@@ -1,86 +1,154 @@
-.player-list {
-  max-width: 800px;
+.player-container {
+  max-width: 900px;
   margin: 0 auto;
-  padding: var(--spacing-lg);
+  padding: 20px;
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
 .error-message {
-  background-color: #fdecea;
-  color: var(--color-danger);
-  border: 1px solid var(--color-danger);
-  border-radius: 4px;
-  padding: var(--spacing-sm) var(--spacing-md);
-  margin-bottom: var(--spacing-md);
+  background-color: #fee2e2;
+  color: #991b1b;
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-bottom: 20px;
 }
 
+/* --- Formulaire --- */
 .add-player-form {
-  display: flex;
-  gap: var(--spacing-sm);
-  margin-bottom: var(--spacing-lg);
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 30px;
 
-  input {
-    flex: 1;
-    min-width: 0;
+  h2 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    color: #1e293b;
+    margin-bottom: 15px;
   }
 
-  button {
-    flex-shrink: 0;
-  }
-}
+  .form-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
 
-.players-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: var(--color-surface);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    input {
+      flex: 1;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 0.95rem;
 
-  thead {
-    background-color: var(--color-primary);
-
-    th {
-      color: #fff;
-      text-align: left;
-      padding: var(--spacing-sm) var(--spacing-md);
-      font-weight: 600;
+      &:focus {
+        outline: none;
+        border-color: #2563eb;
+      }
     }
   }
 
-  tbody {
-    tr {
-      border-bottom: 1px solid var(--color-border);
-      transition: background-color 0.15s ease-in-out;
+  .file-upload-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+
+    .file-btn {
+      background: #f1f5f9;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      border: 1px solid #cbd5e1;
+      transition: background 0.2s;
 
       &:hover {
-        background-color: #f0f7ff;
-      }
-
-      &.editing {
-        background-color: #fff8e1;
+        background: #e2e8f0;
       }
     }
 
-    td {
-      padding: var(--spacing-sm) var(--spacing-md);
+    .avatar-preview img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #2563eb;
+    }
+  }
 
-      input {
-        width: 100%;
-      }
+  .btn-primary {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
 
-      button {
-        margin-right: var(--spacing-xs);
-      }
+    &:hover {
+      background: #1d4ed8;
+    }
+  }
+}
+
+/* --- Grille de Cartes --- */
+.players-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.player-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f1f5f9;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .card-avatar img {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #f8fafc;
+  }
+
+  .card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    .player-name {
+      margin: 0;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .rating-badge {
+      font-size: 0.8rem;
+      color: #0369a1;
+      background: #e0f2fe;
+      padding: 2px 8px;
+      border-radius: 12px;
+      width: fit-content;
+      font-weight: 500;
     }
   }
 }
 
 .no-players {
   text-align: center;
-  color: var(--color-text-secondary);
-  padding: var(--spacing-lg);
-}
-
-@media (max-width: 600px) {
-  .add-player-form {
-    flex-direction: column;
-  }
+  color: #64748b;
+  margin-top: 40px;
 }
