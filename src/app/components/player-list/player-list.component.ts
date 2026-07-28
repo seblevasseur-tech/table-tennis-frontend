@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Player, PlayerService } from '../../services/player.service';
+import {CreatePlayerCommand, Player, PlayerService} from '../../services/player.service';
 
 @Component({
   selector: 'app-player-list',
@@ -12,8 +12,8 @@ import { Player, PlayerService } from '../../services/player.service';
 })
 export class PlayerListComponent implements OnInit {
   players: Player[] = [];
-  player: any;
-  createPlayerCommand: any;
+  player: Player | undefined;
+  createPlayerCommand: CreatePlayerCommand | undefined;
   error: string | null = null;
 
   constructor(private playerService: PlayerService) {}
@@ -37,14 +37,15 @@ export class PlayerListComponent implements OnInit {
 // Gestion de la sélection d'image
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
+    if (this.player && input.files && input.files.length > 0) {
       this.player.avatar = input.files[0];
     }
   }
 
   addPlayer(): void {
     console.log('add player submit')
-    if (!this.createPlayerCommand.name
+    if (!this.createPlayerCommand
+        || !this.createPlayerCommand.name
         || !this.createPlayerCommand.forname
         || !this.createPlayerCommand.rating
         || !this.createPlayerCommand.avatar) {
@@ -58,7 +59,7 @@ export class PlayerListComponent implements OnInit {
     this.playerService.createPlayer(this.createPlayerCommand).subscribe({
       next: (player) => {
         this.players.push(player);
-        this.createPlayerCommand = null;
+        this.createPlayerCommand = undefined;
         console.log('added player')
       },
       error: () => (this.error = "Erreur lors de l'ajout du joueur."),
