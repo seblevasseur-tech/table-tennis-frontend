@@ -12,7 +12,6 @@ import {CreatePlayerCommand, Player, PlayerService} from '../../services/player.
 })
 export class PlayerListComponent implements OnInit {
   players: Player[] = [];
-  player: Player | undefined;
   createPlayerCommand: CreatePlayerCommand | undefined;
   error: string | null = null;
 
@@ -37,8 +36,8 @@ export class PlayerListComponent implements OnInit {
 // Gestion de la sélection d'image
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
-    if (this.player && input.files && input.files.length > 0) {
-      this.player.avatar = input.files[0];
+    if (this.createPlayerCommand && input.files && input.files.length > 0) {
+      this.createPlayerCommand.avatar = input.files[0];
     }
   }
 
