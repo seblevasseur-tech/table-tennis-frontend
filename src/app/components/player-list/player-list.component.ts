@@ -55,7 +55,7 @@ export class PlayerListComponent implements OnInit {
         !this.createPlayerCommand.rating ||
         !this.createPlayerCommand.avatar
     ) {
-      this.error = 'Nom, prénom, classement et photo sont requis.';
+      this.error = 'Nom, prénom, classement et avatar sont requis.';
       return;
     }
 
