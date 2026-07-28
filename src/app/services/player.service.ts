@@ -36,7 +36,12 @@ export class PlayerService {
   }
 
   createPlayer(command: CreatePlayerCommand): Observable<Player> {
-    console.log(command);
+    const formData = new FormData();
+    formData.append('name', command.name);
+    formData.append('forname', command.forname);
+    formData.append('rating', command.rating.toString());
+    formData.append('avatar', command.avatar, command.avatar.name);
+
     return this.http.post<Player>(this.apiUrl, command);
   }
 
