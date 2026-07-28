@@ -42,7 +42,7 @@ export class PlayerService {
     formData.append('rating', command.rating.toString());
     formData.append('avatar', command.avatar, command.avatar.name);
 
-    return this.http.post<Player>(this.apiUrl, command);
+    return this.http.post<Player>(this.apiUrl, formData);
   }
 
   updatePlayer(id: number, player: Player): Observable<Player> {
