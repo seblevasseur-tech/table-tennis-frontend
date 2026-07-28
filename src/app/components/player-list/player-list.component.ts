@@ -43,6 +43,7 @@ export class PlayerListComponent implements OnInit {
   }
 
   addPlayer(): void {
+    console.log('add player submit')
     if (!this.createPlayerCommand.name
         || !this.createPlayerCommand.forname
         || !this.createPlayerCommand.rating
@@ -58,6 +59,7 @@ export class PlayerListComponent implements OnInit {
       next: (player) => {
         this.players.push(player);
         this.createPlayerCommand = null;
+        console.log('added player')
       },
       error: () => (this.error = "Erreur lors de l'ajout du joueur."),
     });

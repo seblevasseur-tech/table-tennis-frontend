@@ -28,6 +28,7 @@ export class PlayerService {
   constructor(private http: HttpClient) {}
 
   getAllPlayers(): Observable<Player[]> {
+    console.log('get all players')
     return this.http.get<Player[]>(this.apiUrl);
   }
 
@@ -36,6 +37,7 @@ export class PlayerService {
   }
 
   createPlayer(command: CreatePlayerCommand): Observable<Player> {
+    console.log('createPlayer')
     return this.http.post<Player>(this.apiUrl, command);
   }
 
