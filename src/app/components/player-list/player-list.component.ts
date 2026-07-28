@@ -13,8 +13,6 @@ import { CreatePlayerCommand, Player, PlayerService } from '../../services/playe
 export class PlayerListComponent implements OnInit {
   players: Player[] = [];
   createPlayerCommand: CreatePlayerCommand = this.getEmptyCommand();
-
-  // Stocke l'URL temporaire pour l'aperçu de l'image
   imagePreviewUrl: string | null = null;
   error: string | null = null;
 
@@ -28,8 +26,8 @@ export class PlayerListComponent implements OnInit {
     return {
       name: '',
       forname: '',
-      rating: 0,
-      avatar: undefined as any
+      rating: null as any, // null permet de laisser le champ vide et d'afficher le placeholder
+      avatar: undefined as any,
     };
   }
 
@@ -46,8 +44,6 @@ export class PlayerListComponent implements OnInit {
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
       this.createPlayerCommand.avatar = file;
-
-      // Génération de l'URL de prévisualisation locale
       this.imagePreviewUrl = URL.createObjectURL(file);
     }
   }
@@ -59,7 +55,7 @@ export class PlayerListComponent implements OnInit {
         !this.createPlayerCommand.rating ||
         !this.createPlayerCommand.avatar
     ) {
-      this.error = 'Nom, prénom, classement et avatar sont requis.';
+      this.error = 'Nom, prénom, classement et photo sont requis.';
       return;
     }
 
@@ -76,7 +72,6 @@ export class PlayerListComponent implements OnInit {
 
   private resetForm(): void {
     this.createPlayerCommand = this.getEmptyCommand();
-    // Nettoyage de l'aperçu d'image
     if (this.imagePreviewUrl) {
       URL.revokeObjectURL(this.imagePreviewUrl);
       this.imagePreviewUrl = null;

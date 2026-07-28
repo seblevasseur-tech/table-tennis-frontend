@@ -3,11 +3,32 @@
         {{ error }}
     </div>
 
-    <!-- Formulaire d'ajout -->
-    <form class="add-player-form" (ngSubmit)="addPlayer()">
-        <h2>Ajouter un joueur</h2>
+    <!-- Formulaire d'ajout sous forme de Carte -->
+    <form class="add-player-card" (ngSubmit)="addPlayer()">
+        <h2 class="card-title">Nouveau Joueur</h2>
 
-        <div class="form-row">
+        <!-- Avatar interactif en haut de la carte -->
+        <div class="avatar-upload-top">
+            <label class="avatar-picker" title="Cliquez pour choisir une photo">
+                <img
+                        [src]="imagePreviewUrl || 'assets/default-avatar.jpg'"
+                        alt="Aperçu avatar"
+                />
+                <div class="avatar-overlay">
+                    <span>📷</span>
+                </div>
+                <input
+                        type="file"
+                        accept="image/*"
+                        (change)="onFileSelected($event)"
+                        hidden
+                />
+            </label>
+            <span class="avatar-hint">Ajouter une photo</span>
+        </div>
+
+        <!-- Champs de saisie verticaux -->
+        <div class="card-inputs">
             <input
                     type="text"
                     name="name"
@@ -31,30 +52,14 @@
             />
         </div>
 
-        <div class="file-upload-section">
-            <label class="file-btn">
-                📷 Choisir un avatar
-                <input
-                        type="file"
-                        accept="image/*"
-                        (change)="onFileSelected($event)"
-                        hidden
-                />
-            </label>
-
-            <!-- Zone de Prévisualisation -->
-            <div class="avatar-preview" *ngIf="imagePreviewUrl">
-                <img [src]="imagePreviewUrl" alt="Aperçu de l'avatar" />
-            </div>
-        </div>
-
-        <button type="submit" class="btn-primary">Ajouter au classement</button>
+        <button type="submit" class="btn-primary">Ajouter le joueur</button>
     </form>
+
+    <hr class="divider" />
 
     <!-- Grille de Cartes des Joueurs -->
     <div class="players-grid" *ngIf="players.length > 0; else noPlayers">
         <div class="player-card" *ngFor="let player of players">
-
             <div class="card-avatar">
                 <img
                         [src]="player.avatar || 'assets/default-avatar.jpg'"
@@ -66,7 +71,6 @@
                 <h3 class="player-name">{{ player.forname }} {{ player.name }}</h3>
                 <span class="rating-badge">🏆 WTT #{{ player.rating }}</span>
             </div>
-
         </div>
     </div>
 
