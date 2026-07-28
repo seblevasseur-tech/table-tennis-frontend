@@ -6,7 +6,6 @@ import { PlayerListComponent } from './components/player-list/player-list.compon
   standalone: true,
   imports: [PlayerListComponent],
   template: `
-    <h1>Table Tennis Players</h1>
     <app-player-list></app-player-list>
   `,
 })
