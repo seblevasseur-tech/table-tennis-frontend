@@ -5,9 +5,18 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 export interface Player {
-  id?: number;
+  id: number;
   name: string;
+  forname: string;
   rating: number;
+  avatar: File;
+}
+
+export interface CreatePlayerCommand {
+  name: string;
+  forname: string;
+  rating: number;
+  avatar: File;
 }
 
 @Injectable({
@@ -26,8 +35,8 @@ export class PlayerService {
     return this.http.get<Player>(`${this.apiUrl}/${id}`);
   }
 
-  createPlayer(player: Player): Observable<Player> {
-    return this.http.post<Player>(this.apiUrl, player);
+  createPlayer(command: CreatePlayerCommand): Observable<Player> {
+    return this.http.post<Player>(this.apiUrl, command);
   }
 
   updatePlayer(id: number, player: Player): Observable<Player> {

@@ -2,57 +2,65 @@
   <div class="error-message" *ngIf="error">
     {{ error }}
   </div>
+    <!-- Formulaire d'ajout -->
+    <form class="add-player-form" (ngSubmit)="addPlayer()">
+        <input
+                type="text"
+                name="name"
+                placeholder="Nom"
+                [(ngModel)]="createPlayerCommand.name"
+                required
+        />
+        <input
+                type="text"
+                name="forname"
+                placeholder="Prénom"
+                [(ngModel)]="createPlayerCommand.forname"
+                required
+        />
+        <input
+                type="number"
+                name="rating"
+                placeholder="Classement WTT"
+                [(ngModel)]="createPlayerCommand.rating"
+                required
+        />
+        <input
+                type="file"
+                accept="image/*"
+                (change)="onFileSelected($event)"
+        />
+        <button type="submit" class="btn-primary">Ajouter</button>
+    </form>
 
-  <form class="add-player-form" (ngSubmit)="addPlayer()">
-    <input
-      type="text"
-      name="name"
-      placeholder="Name"
-      [(ngModel)]="newPlayer.name"
-      required
-    />
-    <input
-      type="number"
-      name="rating"
-      placeholder="Rating"
-      [(ngModel)]="newPlayer.rating"
-      required
-    />
-    <button type="submit" class="btn-primary">Add</button>
-  </form>
-
-  <table class="players-table" *ngIf="players.length > 0; else noPlayers">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Rating</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let player of players" [class.editing]="editingId === player.id">
-        <td>{{ player.id }}</td>
-        <ng-container *ngIf="editingId === player.id; else viewMode">
-          <td>
-            <input type="text" name="editName" [(ngModel)]="editingPlayer.name" />
-          </td>
-          <td>
-            <input type="number" name="editRating" [(ngModel)]="editingPlayer.rating" />
-          </td>
-          <td>
-            <button class="btn-primary" (click)="updatePlayer(player)">Save</button>
-            <button class="btn-secondary" (click)="cancelEdit()">Cancel</button>
-          </td>
-        </ng-container>
-        <ng-template #viewMode>
-          <td>{{ player.name }}</td>
-          <td>{{ player.rating }}</td>
-          <td>
-            <button class="btn-secondary" (click)="startEdit(player)">Edit</button>
-            <button class="btn-danger" (click)="deletePlayer(player.id)">Delete</button>
-          </td>
-        </ng-template>
+    <!-- Tableau des joueurs -->
+    <table class="players-table" *ngIf="players.length > 0; else noPlayers">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Classement WTT</th>
+            <th>Avatar</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let player of players">
+            <!-- MODE LECTURE -->
+            <ng-template #viewMode>
+                <td>{{ player.name }}</td>
+                <td>{{ player.forname }}</td>
+                <td>{{ player.rating }}</td>
+                <td>
+                    <img
+                            [src]="player.avatar || 'assets/default-avatar.jpg'"
+                            alt="Avatar"
+                            class="avatar-thumb"
+                            width="40"
+                            height="40"
+                    />
+                </td>
+            </ng-template>
       </tr>
     </tbody>
   </table>
