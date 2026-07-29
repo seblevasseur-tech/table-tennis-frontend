@@ -90,6 +90,21 @@
                 </div>
             </div>
 
+            <div class="input-group">
+                <label for="countryCode">Pays</label>
+                <select
+                        id="countryCode"
+                        name="countryCode"
+                        [(ngModel)]="createPlayerCommand.countryCode"
+                        required
+                >
+                    <option [ngValue]="null" disabled>Choisir un pays</option>
+                    <option *ngFor="let country of countries" [ngValue]="country.code">
+                        {{ country.flag }} {{ country.name }}
+                    </option>
+                </select>
+            </div>
+
             <!-- Main dominante (Segmented Switch UX) -->
             <div class="input-group">
                 <label>Main dominante</label>

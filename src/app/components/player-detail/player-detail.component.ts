@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PlayerService } from '../../services/player.service';
 import { Player } from '../../model/player';
+import { COUNTRIES, Country } from '../../model/country';
 
 @Component({
     selector: 'app-player-detail',
@@ -44,5 +45,9 @@ export class PlayerDetailComponent implements OnInit {
 
     get handednessLabel(): string {
         return this.player?.handedness === 'LEFT' ? 'Gaucher' : 'Droitier';
+    }
+
+    get country(): Country | undefined {
+        return COUNTRIES.find(country => country.code === this.player?.countryCode);
     }
 }

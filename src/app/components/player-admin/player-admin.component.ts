@@ -8,6 +8,7 @@ import { Blade } from '../../model/blade';
 import { Rubber } from '../../model/rubber';
 import { BladeService } from '../../services/blade.service';
 import { RubberService } from '../../services/rubber.service';
+import { COUNTRIES, Country } from '../../model/country';
 
 @Component({
     selector: 'app-player-admin',
@@ -34,6 +35,7 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
     isSubmitting = false;
     isLoading = true;
     currentStep = 1;
+    countries = COUNTRIES;
 
     isBladeDropdownOpen = false;
     rubberDropdownOpen: 'forehand' | 'backhand' | null = null;
@@ -85,6 +87,7 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
             forname: '',
             avatar: null,
             information: '',
+            countryCode: null,
             handedness: null,
             bladeId: null,
             forehandRubberId: null,
@@ -156,7 +159,8 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
             !this.createPlayerCommand.name ||
             !this.createPlayerCommand.forname ||
             !this.createPlayerCommand.avatar ||
-            !this.createPlayerCommand.handedness
+            !this.createPlayerCommand.handedness ||
+            !this.createPlayerCommand.countryCode
         ) {
             this.error = 'Complétez le profil avant de continuer.';
             this.successMessage = null;

@@ -7,6 +7,7 @@ export interface Player {
     forname: string;
     avatar: string | null;
     information: string | null;
+    countryCode: string;
     handedness: Handedness;
     blade: Blade;
     forehandRubber: Rubber;
@@ -18,6 +19,7 @@ export interface CreatePlayerCommand {
     forname: string;
     avatar: File | null;
     information: string;
+    countryCode: string | null;
     handedness: Handedness | null;
     bladeId: number | null;
     forehandRubberId: number | null;

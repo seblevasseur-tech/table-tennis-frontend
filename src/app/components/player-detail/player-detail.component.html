@@ -17,7 +17,12 @@
             <div>
                 <span class="detail-eyebrow">Profil joueur</span>
                 <h1>{{ currentPlayer.forname }} {{ currentPlayer.name }}</h1>
-                <span class="handedness-badge">{{ handednessLabel }}</span>
+                <div class="player-badges">
+                    <span class="handedness-badge">{{ handednessLabel }}</span>
+                    <span class="country-badge" *ngIf="country as playerCountry">
+                        {{ playerCountry.flag }} {{ playerCountry.name }}
+                    </span>
+                </div>
             </div>
         </header>
 

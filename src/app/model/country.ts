@@ -1,0 +1,47 @@
+export interface Country {
+    code: string;
+    name: string;
+    flag: string;
+}
+
+export const COUNTRIES: Country[] = [
+    { code: 'FR', name: 'France', flag: '🇫🇷' },
+    { code: 'BE', name: 'Belgique', flag: '🇧🇪' },
+    { code: 'CH', name: 'Suisse', flag: '🇨🇭' },
+    { code: 'LU', name: 'Luxembourg', flag: '🇱🇺' },
+    { code: 'DE', name: 'Allemagne', flag: '🇩🇪' },
+    { code: 'ES', name: 'Espagne', flag: '🇪🇸' },
+    { code: 'IT', name: 'Italie', flag: '🇮🇹' },
+    { code: 'PT', name: 'Portugal', flag: '🇵🇹' },
+    { code: 'GB', name: 'Royaume-Uni', flag: '🇬🇧' },
+    { code: 'NL', name: 'Pays-Bas', flag: '🇳🇱' },
+    { code: 'AT', name: 'Autriche', flag: '🇦🇹' },
+    { code: 'PL', name: 'Pologne', flag: '🇵🇱' },
+    { code: 'SE', name: 'Suède', flag: '🇸🇪' },
+    { code: 'DK', name: 'Danemark', flag: '🇩🇰' },
+    { code: 'NO', name: 'Norvège', flag: '🇳🇴' },
+    { code: 'FI', name: 'Finlande', flag: '🇫🇮' },
+    { code: 'IE', name: 'Irlande', flag: '🇮🇪' },
+    { code: 'US', name: 'États-Unis', flag: '🇺🇸' },
+    { code: 'CA', name: 'Canada', flag: '🇨🇦' },
+    { code: 'BR', name: 'Brésil', flag: '🇧🇷' },
+    { code: 'AR', name: 'Argentine', flag: '🇦🇷' },
+    { code: 'CN', name: 'Chine', flag: '🇨🇳' },
+    { code: 'JP', name: 'Japon', flag: '🇯🇵' },
+    { code: 'KR', name: 'Corée du Sud', flag: '🇰🇷' },
+    { code: 'IN', name: 'Inde', flag: '🇮🇳' },
+    { code: 'AU', name: 'Australie', flag: '🇦🇺' },
+    { code: 'NZ', name: 'Nouvelle-Zélande', flag: '🇳🇿' },
+    { code: 'ZA', name: 'Afrique du Sud', flag: '🇿🇦' },
+    { code: 'MA', name: 'Maroc', flag: '🇲🇦' },
+    { code: 'TN', name: 'Tunisie', flag: '🇹🇳' },
+    { code: 'TR', name: 'Turquie', flag: '🇹🇷' },
+    { code: 'GR', name: 'Grèce', flag: '🇬🇷' },
+    { code: 'CZ', name: 'Tchéquie', flag: '🇨🇿' },
+    { code: 'HU', name: 'Hongrie', flag: '🇭🇺' },
+    { code: 'RO', name: 'Roumanie', flag: '🇷🇴' },
+    { code: 'RS', name: 'Serbie', flag: '🇷🇸' },
+    { code: 'HR', name: 'Croatie', flag: '🇭🇷' },
+    { code: 'UA', name: 'Ukraine', flag: '🇺🇦' },
+    { code: 'RU', name: 'Russie', flag: '🇷🇺' },
+];

@@ -221,6 +221,21 @@ app-root {
   }
 }
 
+.player-admin-page .input-group > select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: var(--color-surface-raised);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.player-admin-page .input-group > select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
 textarea {
   width: 100%;
   min-height: 92px;
@@ -629,6 +644,13 @@ textarea:focus {
   font-size: clamp(1.8rem, 4vw, 2.6rem);
 }
 
+.player-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.country-badge,
 .handedness-badge {
   display: inline-flex;
   padding: 6px 10px;
