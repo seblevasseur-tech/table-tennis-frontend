@@ -463,6 +463,110 @@ textarea:focus {
   text-transform: uppercase;
 }
 
+/* Navigation compacte du formulaire joueur. */
+.player-stepper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0 24px;
+  color: var(--color-text-secondary);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.stepper-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.step-number {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  color: var(--color-text-secondary);
+}
+
+.stepper-step.active {
+  color: var(--color-text);
+}
+
+.stepper-step.active .step-number,
+.stepper-step.completed .step-number {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: #000;
+}
+
+.stepper-line {
+  width: 42px;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.stepper-line.completed {
+  background: var(--color-primary);
+}
+
+.step-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.step-actions-next {
+  justify-content: flex-end;
+  margin-top: -8px;
+}
+
+.step-actions-submit {
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.btn-step {
+  padding: 11px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font: inherit;
+  font-weight: 700;
+}
+
+.btn-step-primary {
+  background: var(--color-primary);
+  color: #000;
+}
+
+.btn-step-secondary {
+  background: transparent;
+  color: var(--color-text-secondary);
+}
+
+.btn-step-secondary:hover {
+  border-color: var(--color-text-secondary);
+  color: var(--color-text);
+}
+
+@media (max-width: 520px) {
+  .step-actions-submit {
+    align-items: stretch;
+    flex-direction: column-reverse;
+  }
+
+  .step-actions-submit .btn-spotify,
+  .step-actions-submit .btn-step {
+    width: 100%;
+  }
+
+  .player-stepper {
+    justify-content: center;
+  }
+}
+
 /* Styles du formulaire joueur : sortis du budget anyComponentStyle Angular. */
 $accent-color: #1ed760;
 $accent-hover: #1fdf64;

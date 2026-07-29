@@ -33,6 +33,7 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
     successMessage: string | null = null;
     isSubmitting = false;
     isLoading = true;
+    currentStep = 1;
 
     isBladeDropdownOpen = false;
     rubberDropdownOpen: 'forehand' | 'backhand' | null = null;
@@ -150,6 +151,27 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
         return this.rubbers.filter((r) => `${r.brand} ${r.name}`.toLowerCase().includes(q));
     }
 
+    nextStep(): void {
+        if (
+            !this.createPlayerCommand.name ||
+            !this.createPlayerCommand.forname ||
+            !this.createPlayerCommand.avatar ||
+            !this.createPlayerCommand.handedness
+        ) {
+            this.error = 'Complétez le profil avant de continuer.';
+            this.successMessage = null;
+            return;
+        }
+
+        this.error = null;
+        this.currentStep = 2;
+    }
+
+    previousStep(): void {
+        this.error = null;
+        this.currentStep = 1;
+    }
+
     // Toggles & Selection
     toggleBladeDropdown(): void {
         const nextState = !this.isBladeDropdownOpen;
@@ -218,6 +240,7 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
 
     private resetForm(): void {
         this.createPlayerCommand = this.getEmptyPlayerCommand();
+        this.currentStep = 1;
         this.closeAllDropdowns();
         this.revokePreviewUrl();
         if (this.fileInput) this.fileInput.nativeElement.value = '';
