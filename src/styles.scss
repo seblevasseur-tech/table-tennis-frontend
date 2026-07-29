@@ -87,3 +87,464 @@ input {
     border-color: var(--color-primary);
   }
 }
+
+/* Styles du formulaire joueur : sortis du budget anyComponentStyle Angular. */
+$accent-color: #1ed760;
+$accent-hover: #1fdf64;
+$bg-card: #181818;
+$bg-input: #242424;
+$bg-input-hover: #2a2a2a;
+$border-color: rgba(255, 255, 255, 0.08);
+$text-primary: #ffffff;
+$text-secondary: #a7a7a7;
+
+.player-admin-page {
+  &.admin-container {
+  max-width: 580px;
+  margin: 0 auto;
+  padding: 24px 16px;
+
+  .form-header {
+    margin-bottom: 28px;
+    text-align: center;
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: $text-primary;
+      margin: 0 0 8px 0;
+      letter-spacing: -0.5px;
+    }
+
+    p {
+      color: $text-secondary;
+      font-size: 0.95rem;
+      margin: 0;
+    }
+  }
+}
+
+// Bannières d'alerte
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  &.alert-error {
+    background-color: rgba(220, 38, 38, 0.15);
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    color: #fca5a5;
+  }
+
+  &.alert-success {
+    background-color: rgba(30, 215, 96, 0.15);
+    border: 1px solid rgba(30, 215, 96, 0.3);
+    color: #86efac;
+  }
+}
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+// Cartes de section
+.form-card {
+  background: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: 16px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: $text-primary;
+    margin: 0 0 4px 0;
+  }
+}
+
+// Upload Avatar
+.avatar-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  .avatar-picker {
+    position: relative;
+    width: 104px;
+    height: 104px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+
+    &.has-image {
+      border-style: solid;
+      border-color: $accent-color;
+    }
+
+    &:hover {
+      border-color: $accent-color;
+      transform: scale(1.03);
+
+      .avatar-overlay {
+        opacity: 1;
+      }
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .avatar-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(2px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+
+      .camera-icon {
+        font-size: 1.2rem;
+      }
+
+      .overlay-text {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: $text-primary;
+      }
+    }
+  }
+
+  .btn-remove-avatar {
+    background: none;
+    border: none;
+    color: #ef4444;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Layout des inputs
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: $text-secondary;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  input[type='text'] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    background: $bg-input;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: $text-primary;
+    font-size: 0.95rem;
+    transition: background 0.2s, border-color 0.2s;
+
+    &:hover {
+      background: $bg-input-hover;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $accent-color;
+      background: $bg-input-hover;
+    }
+
+    &::placeholder {
+      color: #6a6a6a;
+    }
+  }
+}
+
+// Segmented Switch UX
+.segmented-control {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: $bg-input;
+  padding: 4px;
+  border-radius: 10px;
+  gap: 4px;
+
+  .segmented-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    color: $text-secondary;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: $text-primary;
+    }
+
+    &.active {
+      background: #333333;
+      color: $text-primary;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
+// Dropdowns de matériel personnalisés
+.equipment-dropdown {
+  position: relative;
+  width: 100%;
+
+  .equipment-dropdown-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: $bg-input;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: $text-primary;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: $bg-input-hover;
+    }
+
+    &.is-open {
+      border-color: $accent-color;
+      background: $bg-input-hover;
+
+      .dropdown-chevron {
+        transform: rotate(180deg);
+      }
+    }
+
+    img {
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+
+    .selected-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+
+      .brand-badge {
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: $accent-color;
+        text-transform: uppercase;
+      }
+
+      .item-name {
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+    }
+
+    .placeholder-text {
+      color: #6a6a6a;
+      font-size: 0.95rem;
+    }
+
+    .dropdown-chevron {
+      margin-left: auto;
+      font-size: 0.7rem;
+      color: $text-secondary;
+      transition: transform 0.2s ease;
+    }
+  }
+
+  .equipment-dropdown-menu {
+    position: absolute;
+    z-index: 20;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: #202020;
+    border: 1px solid $border-color;
+    border-radius: 10px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+
+    .dropdown-search {
+      padding: 8px;
+      border-bottom: 1px solid $border-color;
+
+      input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 8px 12px;
+        background: #141414;
+        border: none;
+        border-radius: 6px;
+        color: white;
+        font-size: 0.85rem;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    .dropdown-list {
+      max-height: 200px;
+      overflow-y: auto;
+      padding: 4px;
+    }
+
+    .equipment-option {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 10px;
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+      color: $text-primary;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.15s ease;
+
+      &:hover {
+        background: #2e2e2e;
+      }
+
+      &.selected {
+        background: rgba(30, 215, 96, 0.12);
+
+        .option-name {
+          color: $accent-color;
+        }
+      }
+
+      img {
+        width: 32px;
+        height: 32px;
+        border-radius: 4px;
+        object-fit: cover;
+      }
+
+      .option-details {
+        display: flex;
+        flex-direction: column;
+
+        .option-brand {
+          font-size: 0.7rem;
+          color: $text-secondary;
+        }
+
+        .option-name {
+          font-size: 0.85rem;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .equipment-empty {
+      display: block;
+      padding: 12px;
+      text-align: center;
+      color: $text-secondary;
+      font-size: 0.85rem;
+    }
+  }
+}
+
+// Bouton principal Spotify style
+.btn-spotify {
+  width: 100%;
+  background-color: $accent-color;
+  color: #000000;
+  border: none;
+  padding: 16px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: transform 0.15s ease, background-color 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background-color: $accent-hover;
+    transform: scale(1.02);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Small Spinner
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+}
