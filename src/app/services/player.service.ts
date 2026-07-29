@@ -29,6 +29,7 @@ export class PlayerService {
     formData.append('bladeId', command.bladeId!.toString());
     formData.append('forehandRubberId', command.forehandRubberId!.toString());
     formData.append('backhandRubberId', command.backhandRubberId!.toString());
+    formData.append('information', command.information);
     formData.append('avatar', command.avatar!, command.avatar!.name);
 
     return this.http.post<Player>(this.apiUrl, formData);

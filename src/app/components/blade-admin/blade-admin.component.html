@@ -27,6 +27,18 @@
             </div>
         </div>
 
+        <div class="input-group information-group">
+            <label for="blade-information">Informations</label>
+            <textarea
+                    id="blade-information"
+                    name="information"
+                    rows="3"
+                    placeholder="Décrivez les caractéristiques techniques de ce bois..."
+                    [(ngModel)]="createBladeCommand.information"
+                    (input)="autoResize($event)"
+            ></textarea>
+        </div>
+
         <button type="submit" class="btn-spotify" [disabled]="isSubmitting">
             {{ isSubmitting ? 'Enregistrement...' : 'Ajouter le bois' }}
         </button>

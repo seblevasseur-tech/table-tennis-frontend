@@ -271,6 +271,21 @@
             </div>
         </section>
 
+        <section class="form-card">
+            <h2 class="card-title">Informations complémentaires</h2>
+            <div class="input-group information-group">
+                <label for="player-information">Informations</label>
+                <textarea
+                        id="player-information"
+                        name="information"
+                        rows="3"
+                        placeholder="Ajoutez des informations sur le joueur..."
+                        [(ngModel)]="createPlayerCommand.information"
+                        (input)="autoResize($event)"
+                ></textarea>
+            </div>
+        </section>
+
         <!-- Bouton Soumettre -->
         <button type="submit" class="btn-spotify" [disabled]="isSubmitting || isLoading">
             <span *ngIf="isSubmitting" class="spinner"></span>

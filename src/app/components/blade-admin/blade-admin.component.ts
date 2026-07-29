@@ -28,7 +28,14 @@ export class BladeAdminComponent {
             brand: '',
             name: '',
             avatar: undefined as any,
+            information: '',
         };
+    }
+
+    autoResize(event: Event): void {
+        const textarea = event.target as HTMLTextAreaElement;
+        textarea.style.height = 'auto';
+        textarea.style.height = textarea.scrollHeight + 'px';
     }
 
     onFileSelected(event: Event): void {

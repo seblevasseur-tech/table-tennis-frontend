@@ -221,6 +221,29 @@ app-root {
   }
 }
 
+textarea {
+  width: 100%;
+  min-height: 92px;
+  padding: 12px 14px;
+  overflow: hidden;
+  resize: none;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: var(--color-surface-raised);
+  color: var(--color-text);
+  font: inherit;
+  line-height: 1.5;
+}
+
+textarea::placeholder {
+  color: #6a6a6a;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
 /* Composants partagés : formulaires d'administration et catalogues. */
 .simple-admin-page {
   width: min(100%, 560px);

@@ -83,11 +83,18 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
             name: '',
             forname: '',
             avatar: null,
+            information: '',
             handedness: null,
             bladeId: null,
             forehandRubberId: null,
             backhandRubberId: null,
         };
+    }
+
+    autoResize(event: Event): void {
+        const textarea = event.target as HTMLTextAreaElement;
+        textarea.style.height = 'auto';
+        textarea.style.height = textarea.scrollHeight + 'px';
     }
 
     onFileSelected(event: Event): void {

@@ -3,6 +3,7 @@ export interface Player {
     name: string;
     forname: string;
     avatar: string | null;
+    information: string | null;
     handedness: Handedness;
     blade: BladeSummary;
     forehandRubber: RubberSummary;
@@ -13,6 +14,7 @@ export interface CreatePlayerCommand {
     name: string;
     forname: string;
     avatar: File | null;
+    information: string;
     handedness: Handedness | null;
     bladeId: number | null;
     forehandRubberId: number | null;

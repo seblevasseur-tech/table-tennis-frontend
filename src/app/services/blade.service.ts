@@ -25,6 +25,7 @@ export class BladeService {
         const formData = new FormData();
         formData.append('name', command.name);
         formData.append('brand', command.brand);
+        formData.append('information', command.information);
         formData.append('avatar', command.avatar, command.avatar.name);
 
         console.log(formData);
