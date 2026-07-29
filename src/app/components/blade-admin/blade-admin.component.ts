@@ -55,6 +55,8 @@ export class BladeAdminComponent {
         this.error = null;
         this.isSubmitting = true;
 
+        console.log("addBlade");
+        console.log(this.createBladeCommand);
         this.bladeService.createBlade(this.createBladeCommand).subscribe({
             next: () => {
                 this.isSubmitting = false;
