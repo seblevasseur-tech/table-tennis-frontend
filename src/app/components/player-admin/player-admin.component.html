@@ -79,21 +79,36 @@
 
             <div class="input-group">
                 <label for="countryCode">Pays</label>
-                <select
-                        id="countryCode"
-                        name="countryCode"
-                        [(ngModel)]="createPlayerCommand.countryCode"
-                        required
-                >
-                    <option [ngValue]="null" disabled>Choisir un pays</option>
-                    <option *ngFor="let country of countries" [ngValue]="country.code">
-                        {{ country.flag }} {{ country.name }}
-                    </option>
-                </select>
-                <span class="country-selection-preview" *ngIf="getCountry(createPlayerCommand.countryCode) as selectedCountry">
-                    <img class="country-flag" [src]="getCountryFlagUrl(selectedCountry.code)" [alt]="selectedCountry.name" />
-                    <span>{{ selectedCountry.name }}</span>
-                </span>
+                <div class="country-dropdown">
+                    <button
+                        type="button"
+                        class="country-dropdown-trigger"
+                        [class.is-open]="isCountryDropdownOpen"
+                        (click)="toggleCountryDropdown()"
+                    >
+                        <ng-container *ngIf="getCountry(createPlayerCommand.countryCode) as selectedCountry; else countryPlaceholder">
+                            <img class="country-flag" [src]="getCountryFlagUrl(selectedCountry.code)" [alt]="selectedCountry.name" />
+                            <span>{{ selectedCountry.name }}</span>
+                        </ng-container>
+                        <ng-template #countryPlaceholder>
+                            <span class="country-placeholder">Choisir un pays</span>
+                        </ng-template>
+                        <span class="dropdown-chevron">&#9660;</span>
+                    </button>
+
+                    <div class="country-dropdown-menu" *ngIf="isCountryDropdownOpen">
+                        <button
+                            type="button"
+                            class="country-option"
+                            *ngFor="let country of countries"
+                            [class.selected]="country.code === createPlayerCommand.countryCode"
+                            (click)="selectCountry(country)"
+                        >
+                            <img class="country-flag" [src]="getCountryFlagUrl(country.code)" [alt]="country.name" />
+                            <span>{{ country.name }}</span>
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <!-- Main dominante (Segmented Switch UX) -->

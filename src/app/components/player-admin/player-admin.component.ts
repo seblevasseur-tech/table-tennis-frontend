@@ -39,6 +39,7 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
     countries = COUNTRIES;
 
     isBladeDropdownOpen = false;
+    isCountryDropdownOpen = false;
     rubberDropdownOpen: 'forehand' | 'backhand' | null = null;
 
     private subscription = new Subscription();
@@ -79,7 +80,7 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
     @HostListener('document:click', ['$event'])
     onDocumentClick(event: MouseEvent): void {
         const target = event.target as HTMLElement;
-        if (!target.closest('.equipment-dropdown')) {
+        if (!target.closest('.equipment-dropdown') && !target.closest('.country-dropdown')) {
             this.closeAllDropdowns();
         }
     }
@@ -100,6 +101,21 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
 
     getCountryFlagUrl(code: string | null): string {
         return countryFlagUrl(code);
+    }
+
+    toggleCountryDropdown(): void {
+        this.isCountryDropdownOpen = !this.isCountryDropdownOpen;
+        this.closeAllEquipmentDropdowns();
+    }
+
+    selectCountry(country: Country): void {
+        this.createPlayerCommand.countryCode = country.code;
+        this.isCountryDropdownOpen = false;
+    }
+
+    private closeAllEquipmentDropdowns(): void {
+        this.isBladeDropdownOpen = false;
+        this.rubberDropdownOpen = null;
     }
 
     getCountry(code: string | null): Country | undefined {
@@ -197,8 +213,8 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
     }
 
     private closeAllDropdowns(): void {
-        this.isBladeDropdownOpen = false;
-        this.rubberDropdownOpen = null;
+        this.isCountryDropdownOpen = false;
+        this.closeAllEquipmentDropdowns();
     }
 
     addPlayer(): void {
