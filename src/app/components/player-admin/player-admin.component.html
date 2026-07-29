@@ -24,10 +24,77 @@
                 <label>Prénom</label>
                 <input type="text" name="forname" placeholder="ex: Tomokazu" [(ngModel)]="createPlayerCommand.forname" required />
             </div>
+        </div>
 
-            <div class="input-group">
-                <label>Rang WTT</label>
-                <input type="number" name="rating" placeholder="ex: 4" [(ngModel)]="createPlayerCommand.rating" required />
+        <div class="input-group">
+            <label for="handedness">Main dominante</label>
+            <select id="handedness" name="handedness" [(ngModel)]="createPlayerCommand.handedness" required>
+                <option [ngValue]="null" disabled>Choisir</option>
+                <option value="RIGHT">Droitier</option>
+                <option value="LEFT">Gaucher</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="blade">Bois</label>
+            <div class="equipment-dropdown">
+                <button type="button" class="equipment-dropdown-trigger" (click)="toggleBladeDropdown()" [attr.aria-expanded]="isBladeDropdownOpen" aria-haspopup="listbox">
+                    <ng-container *ngIf="selectedBlade as blade; else bladePlaceholder">
+                        <img [src]="blade.avatar || 'assets/default-blade-avatar.png'" [alt]="blade.brand + ' ' + blade.name" />
+                        <span>{{ blade.brand }} {{ blade.name }}</span>
+                    </ng-container>
+                    <ng-template #bladePlaceholder><span>Choisir un bois</span></ng-template>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <div class="equipment-dropdown-menu" *ngIf="isBladeDropdownOpen" role="listbox">
+                    <button type="button" class="equipment-option" *ngFor="let blade of blades" (click)="selectBlade(blade)" role="option" [attr.aria-selected]="blade.id === createPlayerCommand.bladeId">
+                        <img [src]="blade.avatar || 'assets/default-blade-avatar.png'" [alt]="blade.brand + ' ' + blade.name" />
+                        <span>{{ blade.brand }} {{ blade.name }}</span>
+                    </button>
+                    <span class="equipment-empty" *ngIf="blades.length === 0">Aucun bois disponible</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label for="forehandRubber">Revêtement coup droit</label>
+            <div class="equipment-dropdown">
+                <button type="button" class="equipment-dropdown-trigger" (click)="toggleRubberDropdown('forehand')" [attr.aria-expanded]="rubberDropdownOpen === 'forehand'" aria-haspopup="listbox">
+                    <ng-container *ngIf="selectedForehandRubber as rubber; else forehandPlaceholder">
+                        <img [src]="rubber.avatar || 'assets/default-rubber-avatar.jpg'" [alt]="rubber.brand + ' ' + rubber.name" />
+                        <span>{{ rubber.brand }} {{ rubber.name }}</span>
+                    </ng-container>
+                    <ng-template #forehandPlaceholder><span>Choisir un revêtement</span></ng-template>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <div class="equipment-dropdown-menu" *ngIf="rubberDropdownOpen === 'forehand'" role="listbox">
+                    <button type="button" class="equipment-option" *ngFor="let rubber of rubbers" (click)="selectRubber('forehand', rubber)" role="option" [attr.aria-selected]="rubber.id === createPlayerCommand.forehandRubberId">
+                        <img [src]="rubber.avatar || 'assets/default-rubber-avatar.jpg'" [alt]="rubber.brand + ' ' + rubber.name" />
+                        <span>{{ rubber.brand }} {{ rubber.name }}</span>
+                    </button>
+                    <span class="equipment-empty" *ngIf="rubbers.length === 0">Aucun revêtement disponible</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label for="backhandRubber">Revêtement revers</label>
+            <div class="equipment-dropdown">
+                <button type="button" class="equipment-dropdown-trigger" (click)="toggleRubberDropdown('backhand')" [attr.aria-expanded]="rubberDropdownOpen === 'backhand'" aria-haspopup="listbox">
+                    <ng-container *ngIf="selectedBackhandRubber as rubber; else backhandPlaceholder">
+                        <img [src]="rubber.avatar || 'assets/default-rubber-avatar.jpg'" [alt]="rubber.brand + ' ' + rubber.name" />
+                        <span>{{ rubber.brand }} {{ rubber.name }}</span>
+                    </ng-container>
+                    <ng-template #backhandPlaceholder><span>Choisir un revêtement</span></ng-template>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <div class="equipment-dropdown-menu" *ngIf="rubberDropdownOpen === 'backhand'" role="listbox">
+                    <button type="button" class="equipment-option" *ngFor="let rubber of rubbers" (click)="selectRubber('backhand', rubber)" role="option" [attr.aria-selected]="rubber.id === createPlayerCommand.backhandRubberId">
+                        <img [src]="rubber.avatar || 'assets/default-rubber-avatar.jpg'" [alt]="rubber.brand + ' ' + rubber.name" />
+                        <span>{{ rubber.brand }} {{ rubber.name }}</span>
+                    </button>
+                    <span class="equipment-empty" *ngIf="rubbers.length === 0">Aucun revêtement disponible</span>
+                </div>
             </div>
         </div>
 

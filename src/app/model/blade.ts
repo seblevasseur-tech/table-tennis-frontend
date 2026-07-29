@@ -2,7 +2,7 @@ export interface Blade {
     id: number;
     name: string;
     brand: string;
-    avatar: File;
+    avatar: string | null;
 }
 
 export interface CreateBladeCommand {

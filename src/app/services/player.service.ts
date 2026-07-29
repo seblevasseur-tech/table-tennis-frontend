@@ -25,8 +25,11 @@ export class PlayerService {
     const formData = new FormData();
     formData.append('name', command.name);
     formData.append('forname', command.forname);
-    formData.append('rating', command.rating.toString());
-    formData.append('avatar', command.avatar, command.avatar.name);
+    formData.append('handedness', command.handedness!);
+    formData.append('bladeId', command.bladeId!.toString());
+    formData.append('forehandRubberId', command.forehandRubberId!.toString());
+    formData.append('backhandRubberId', command.backhandRubberId!.toString());
+    formData.append('avatar', command.avatar!, command.avatar!.name);
 
     return this.http.post<Player>(this.apiUrl, formData);
   }
