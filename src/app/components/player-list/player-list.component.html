@@ -14,10 +14,38 @@
     </div>
     <div class="catalog-search">
         <label for="player-country-filter">Pays</label>
-        <select id="player-country-filter" class="catalog-filter-select" [(ngModel)]="countryFilter">
-            <option value="">Tous les pays</option>
-            <option *ngFor="let country of countries" [value]="country.code">{{ country.name }}</option>
-        </select>
+        <div class="catalog-country-dropdown">
+            <button
+                type="button"
+                class="catalog-country-trigger"
+                [class.is-open]="isCountryDropdownOpen"
+                (click)="toggleCountryDropdown()"
+            >
+                <ng-container *ngIf="selectedCountry as country; else allCountries">
+                    <img class="country-flag" [src]="getCountryFlagUrl(country.code)" [alt]="country.name" />
+                    <span>{{ country.name }}</span>
+                </ng-container>
+                <ng-template #allCountries>
+                    <span>Tous les pays</span>
+                </ng-template>
+                <span class="dropdown-chevron">&#9660;</span>
+            </button>
+            <div class="catalog-country-menu" *ngIf="isCountryDropdownOpen">
+                <button type="button" class="catalog-country-option" [class.selected]="!countryFilter" (click)="selectCountry('')">
+                    <span>Tous les pays</span>
+                </button>
+                <button
+                    type="button"
+                    class="catalog-country-option"
+                    *ngFor="let country of countries"
+                    [class.selected]="country.code === countryFilter"
+                    (click)="selectCountry(country.code)"
+                >
+                    <img class="country-flag" [src]="getCountryFlagUrl(country.code)" [alt]="country.name" />
+                    <span>{{ country.name }}</span>
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 

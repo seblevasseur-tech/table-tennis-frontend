@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { PlayerService } from '../../services/player.service';
 import { Player } from '../../model/player';
-import { COUNTRIES } from '../../model/country';
+import { COUNTRIES, countryFlagUrl } from '../../model/country';
 
 @Component({
   selector: 'app-player-list',
@@ -19,8 +19,35 @@ export class PlayerListComponent implements OnInit {
   nameSearchTerm = '';
   countryFilter = '';
   countries = COUNTRIES;
+  isCountryDropdownOpen = false;
 
   constructor(private playerService: PlayerService) {}
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.catalog-country-dropdown')) {
+      this.isCountryDropdownOpen = false;
+    }
+  }
+
+  toggleCountryDropdown(): void {
+    this.isCountryDropdownOpen = !this.isCountryDropdownOpen;
+  }
+
+  selectCountry(code: string): void {
+    this.countryFilter = code;
+    this.isCountryDropdownOpen = false;
+  }
+
+  getCountryFlagUrl(code: string): string {
+    return countryFlagUrl(code);
+  }
+
+  get selectedCountry() {
+    return this.countries.find((country) => country.code === this.countryFilter);
+  }
+
+
 
   get filteredPlayers(): Player[] {
     const nameQuery = this.nameSearchTerm.trim().toLowerCase();
