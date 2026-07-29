@@ -201,7 +201,6 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
         if (
             !this.createPlayerCommand.name ||
             !this.createPlayerCommand.forname ||
-            !this.createPlayerCommand.avatar ||
             !this.createPlayerCommand.handedness ||
             !this.createPlayerCommand.countryCode ||
             (!this.createPlayerCommand.avatar && !this.editingId) ||
@@ -209,7 +208,7 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
             !this.createPlayerCommand.forehandRubberId ||
             !this.createPlayerCommand.backhandRubberId
         ) {
-            this.error = 'Veuillez remplir tous les champs et ajouter une photo.';
+            this.error = this.editingId ? 'Veuillez remplir tous les champs du joueur.' : 'Veuillez remplir tous les champs et ajouter une photo.';
             this.successMessage = null;
             return;
         }
@@ -230,7 +229,7 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
             },
             error: () => {
                 this.isSubmitting = false;
-                this.error = "Une erreur est survenue lors de l'ajout du joueur.";
+                this.error = "Une erreur est survenue lors de l'enregistrement du joueur.";
             },
         });
     }
