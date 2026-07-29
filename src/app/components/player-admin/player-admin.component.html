@@ -1,105 +1,280 @@
 <div class="admin-container">
-    <div class="error-message" *ngIf="error">
-        {{ error }}
+    <header class="form-header">
+        <h1>Nouveau Joueur</h1>
+        <p>Configurez le profil et la raquette du joueur</p>
+    </header>
+
+    <!-- Bannières d'information -->
+    <div class="alert alert-error" *ngIf="error">
+        <span class="alert-icon">⚠️</span>
+        <span>{{ error }}</span>
     </div>
 
-    <form class="add-card" (ngSubmit)="addPlayer()">
-        <div class="avatar-upload-top">
-            <label class="avatar-picker" title="Choisir une photo">
-                <img [src]="imagePlayerPreviewUrl || 'assets/default-player-avatar.jpg'" alt="Aperçu avatar" />
-                <div class="avatar-overlay">📷</div>
-                <!-- Ajout de #fileInput -->
-                <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
-            </label>
-            <span class="avatar-hint">Cliquez pour ajouter une photo</span>
-        </div>
+    <div class="alert alert-success" *ngIf="successMessage">
+        <span class="alert-icon">✓</span>
+        <span>{{ successMessage }}</span>
+    </div>
 
-        <div class="card-inputs">
+    <form (ngSubmit)="addPlayer()" class="admin-form">
+        <!-- SECTION 1 : PROFIL -->
+        <section class="form-card">
+            <h2 class="card-title">Informations Personnelles</h2>
+
+            <!-- Upload Avatar -->
+            <div class="avatar-upload-container">
+                <label class="avatar-picker" [class.has-image]="imagePlayerPreviewUrl">
+                    <img
+                            [src]="imagePlayerPreviewUrl || 'assets/default-player-avatar.jpg'"
+                            alt="Aperçu avatar"
+                    />
+                    <div class="avatar-overlay">
+                        <span class="camera-icon">📸</span>
+                        <span class="overlay-text">{{ imagePlayerPreviewUrl ? 'Changer' : 'Ajouter' }}</span>
+                    </div>
+                    <input
+                        #fileInput
+                        type="file"
+                        accept="image/*"
+                        (change)="onFileSelected($event)"
+                        hidden
+                    />
+                </label>
+
+                <button
+                        type="button"
+                        class="btn-remove-avatar"
+                        *ngIf="imagePlayerPreviewUrl"
+                        (click)="removeAvatar($event)"
+                >
+                    Supprimer la photo
+                </button>
+            </div>
+
+            <!-- Nom & Prénom -->
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="forname">Prénom</label>
+                    <input
+                            id="forname"
+                            type="text"
+                            name="forname"
+                            placeholder="Tomokazu"
+                            [(ngModel)]="createPlayerCommand.forname"
+                            required
+                    />
+                </div>
+
+                <div class="input-group">
+                    <label for="name">Nom</label>
+                    <input
+                            id="name"
+                            type="text"
+                            name="name"
+                            placeholder="Harimoto"
+                            [(ngModel)]="createPlayerCommand.name"
+                            required
+                    />
+                </div>
+            </div>
+
+            <!-- Main dominante (Segmented Switch UX) -->
             <div class="input-group">
-                <label>Nom</label>
-                <input type="text" name="name" placeholder="ex: Harimoto" [(ngModel)]="createPlayerCommand.name" required />
+                <label>Main dominante</label>
+                <div class="segmented-control">
+                    <button
+                            type="button"
+                            class="segmented-btn"
+                            [class.active]="createPlayerCommand.handedness === 'RIGHT'"
+                            (click)="setHandedness('RIGHT')"
+                    >
+                        <span>✋</span> Droitier
+                    </button>
+                    <button
+                            type="button"
+                            class="segmented-btn"
+                            [class.active]="createPlayerCommand.handedness === 'LEFT'"
+                            (click)="setHandedness('LEFT')"
+                    >
+                        <span>🤚</span> Gaucher
+                    </button>
+                </div>
             </div>
+        </section>
 
+        <!-- SECTION 2 : ÉQUIPEMENT -->
+        <section class="form-card">
+            <h2 class="card-title">Configuration de Raquette</h2>
+
+            <!-- Bois -->
             <div class="input-group">
-                <label>Prénom</label>
-                <input type="text" name="forname" placeholder="ex: Tomokazu" [(ngModel)]="createPlayerCommand.forname" required />
-            </div>
-        </div>
-
-        <div class="input-group">
-            <label for="handedness">Main dominante</label>
-            <select id="handedness" name="handedness" [(ngModel)]="createPlayerCommand.handedness" required>
-                <option [ngValue]="null" disabled>Choisir</option>
-                <option value="RIGHT">Droitier</option>
-                <option value="LEFT">Gaucher</option>
-            </select>
-        </div>
-
-        <div class="input-group">
-            <label for="blade">Bois</label>
-            <div class="equipment-dropdown">
-                <button type="button" class="equipment-dropdown-trigger" (click)="toggleBladeDropdown()" [attr.aria-expanded]="isBladeDropdownOpen" aria-haspopup="listbox">
-                    <ng-container *ngIf="selectedBlade as blade; else bladePlaceholder">
-                        <img [src]="blade.avatar || 'assets/default-blade-avatar.png'" [alt]="blade.brand + ' ' + blade.name" />
-                        <span>{{ blade.brand }} {{ blade.name }}</span>
-                    </ng-container>
-                    <ng-template #bladePlaceholder><span>Choisir un bois</span></ng-template>
-                    <span class="dropdown-arrow">▾</span>
-                </button>
-                <div class="equipment-dropdown-menu" *ngIf="isBladeDropdownOpen" role="listbox">
-                    <button type="button" class="equipment-option" *ngFor="let blade of blades" (click)="selectBlade(blade)" role="option" [attr.aria-selected]="blade.id === createPlayerCommand.bladeId">
-                        <img [src]="blade.avatar || 'assets/default-blade-avatar.png'" [alt]="blade.brand + ' ' + blade.name" />
-                        <span>{{ blade.brand }} {{ blade.name }}</span>
+                <label>Bois (Blade)</label>
+                <div class="equipment-dropdown">
+                    <button
+                            type="button"
+                            class="equipment-dropdown-trigger"
+                            [class.is-open]="isBladeDropdownOpen"
+                            (click)="toggleBladeDropdown()"
+                    >
+                        <ng-container *ngIf="selectedBlade as blade; else bladePlaceholder">
+                            <img [src]="blade.avatar || 'assets/default-blade-avatar.png'" [alt]="blade.name" />
+                            <div class="selected-info">
+                                <span class="brand-badge">{{ blade.brand }}</span>
+                                <span class="item-name">{{ blade.name }}</span>
+                            </div>
+                        </ng-container>
+                        <ng-template #bladePlaceholder>
+                            <span class="placeholder-text">Sélectionner un bois...</span>
+                        </ng-template>
+                        <span class="dropdown-chevron">▼</span>
                     </button>
-                    <span class="equipment-empty" *ngIf="blades.length === 0">Aucun bois disponible</span>
+
+                    <div class="equipment-dropdown-menu" *ngIf="isBladeDropdownOpen">
+                        <div class="dropdown-search">
+                            <input
+                                    type="text"
+                                    placeholder="Rechercher un bois..."
+                                    [(ngModel)]="bladeSearchQuery"
+                                    name="bladeSearch"
+                                    (click)="$event.stopPropagation()"
+                            />
+                        </div>
+                        <div class="dropdown-list">
+                            <button
+                                    type="button"
+                                    class="equipment-option"
+                                    *ngFor="let blade of filteredBlades"
+                                    (click)="selectBlade(blade)"
+                                    [class.selected]="blade.id === createPlayerCommand.bladeId"
+                            >
+                                <img [src]="blade.avatar || 'assets/default-blade-avatar.png'" [alt]="blade.name" />
+                                <div class="option-details">
+                                    <span class="option-brand">{{ blade.brand }}</span>
+                                    <span class="option-name">{{ blade.name }}</span>
+                                </div>
+                            </button>
+                            <span class="equipment-empty" *ngIf="filteredBlades.length === 0">
+                Aucun résultat
+              </span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="input-group">
-            <label for="forehandRubber">Revêtement coup droit</label>
-            <div class="equipment-dropdown">
-                <button type="button" class="equipment-dropdown-trigger" (click)="toggleRubberDropdown('forehand')" [attr.aria-expanded]="rubberDropdownOpen === 'forehand'" aria-haspopup="listbox">
-                    <ng-container *ngIf="selectedForehandRubber as rubber; else forehandPlaceholder">
-                        <img [src]="rubber.avatar || 'assets/default-rubber-avatar.jpg'" [alt]="rubber.brand + ' ' + rubber.name" />
-                        <span>{{ rubber.brand }} {{ rubber.name }}</span>
-                    </ng-container>
-                    <ng-template #forehandPlaceholder><span>Choisir un revêtement</span></ng-template>
-                    <span class="dropdown-arrow">▾</span>
-                </button>
-                <div class="equipment-dropdown-menu" *ngIf="rubberDropdownOpen === 'forehand'" role="listbox">
-                    <button type="button" class="equipment-option" *ngFor="let rubber of rubbers" (click)="selectRubber('forehand', rubber)" role="option" [attr.aria-selected]="rubber.id === createPlayerCommand.forehandRubberId">
-                        <img [src]="rubber.avatar || 'assets/default-rubber-avatar.jpg'" [alt]="rubber.brand + ' ' + rubber.name" />
-                        <span>{{ rubber.brand }} {{ rubber.name }}</span>
+            <!-- Revêtement Coup Droit -->
+            <div class="input-group">
+                <label>Revêtement Coup Droit</label>
+                <div class="equipment-dropdown">
+                    <button
+                            type="button"
+                            class="equipment-dropdown-trigger"
+                            [class.is-open]="rubberDropdownOpen === 'forehand'"
+                            (click)="toggleRubberDropdown('forehand')"
+                    >
+                        <ng-container *ngIf="selectedForehandRubber as rubber; else forehandPlaceholder">
+                            <img [src]="rubber.avatar || 'assets/default-rubber-avatar.jpg'" [alt]="rubber.name" />
+                            <div class="selected-info">
+                                <span class="brand-badge">{{ rubber.brand }}</span>
+                                <span class="item-name">{{ rubber.name }}</span>
+                            </div>
+                        </ng-container>
+                        <ng-template #forehandPlaceholder>
+                            <span class="placeholder-text">Sélectionner un revêtement...</span>
+                        </ng-template>
+                        <span class="dropdown-chevron">▼</span>
                     </button>
-                    <span class="equipment-empty" *ngIf="rubbers.length === 0">Aucun revêtement disponible</span>
+
+                    <div class="equipment-dropdown-menu" *ngIf="rubberDropdownOpen === 'forehand'">
+                        <div class="dropdown-search">
+                            <input
+                                    type="text"
+                                    placeholder="Rechercher..."
+                                    [(ngModel)]="forehandSearchQuery"
+                                    name="forehandSearch"
+                                    (click)="$event.stopPropagation()"
+                            />
+                        </div>
+                        <div class="dropdown-list">
+                            <button
+                                    type="button"
+                                    class="equipment-option"
+                                    *ngFor="let rubber of filteredForehandRubbers"
+                                    (click)="selectRubber('forehand', rubber)"
+                                    [class.selected]="rubber.id === createPlayerCommand.forehandRubberId"
+                            >
+                                <img [src]="rubber.avatar || 'assets/default-rubber-avatar.jpg'" [alt]="rubber.name" />
+                                <div class="option-details">
+                                    <span class="option-brand">{{ rubber.brand }}</span>
+                                    <span class="option-name">{{ rubber.name }}</span>
+                                </div>
+                            </button>
+                            <span class="equipment-empty" *ngIf="filteredForehandRubbers.length === 0">
+                Aucun résultat
+              </span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="input-group">
-            <label for="backhandRubber">Revêtement revers</label>
-            <div class="equipment-dropdown">
-                <button type="button" class="equipment-dropdown-trigger" (click)="toggleRubberDropdown('backhand')" [attr.aria-expanded]="rubberDropdownOpen === 'backhand'" aria-haspopup="listbox">
-                    <ng-container *ngIf="selectedBackhandRubber as rubber; else backhandPlaceholder">
-                        <img [src]="rubber.avatar || 'assets/default-rubber-avatar.jpg'" [alt]="rubber.brand + ' ' + rubber.name" />
-                        <span>{{ rubber.brand }} {{ rubber.name }}</span>
-                    </ng-container>
-                    <ng-template #backhandPlaceholder><span>Choisir un revêtement</span></ng-template>
-                    <span class="dropdown-arrow">▾</span>
-                </button>
-                <div class="equipment-dropdown-menu" *ngIf="rubberDropdownOpen === 'backhand'" role="listbox">
-                    <button type="button" class="equipment-option" *ngFor="let rubber of rubbers" (click)="selectRubber('backhand', rubber)" role="option" [attr.aria-selected]="rubber.id === createPlayerCommand.backhandRubberId">
-                        <img [src]="rubber.avatar || 'assets/default-rubber-avatar.jpg'" [alt]="rubber.brand + ' ' + rubber.name" />
-                        <span>{{ rubber.brand }} {{ rubber.name }}</span>
+            <!-- Revêtement Revers -->
+            <div class="input-group">
+                <label>Revêtement Revers</label>
+                <div class="equipment-dropdown">
+                    <button
+                            type="button"
+                            class="equipment-dropdown-trigger"
+                            [class.is-open]="rubberDropdownOpen === 'backhand'"
+                            (click)="toggleRubberDropdown('backhand')"
+                    >
+                        <ng-container *ngIf="selectedBackhandRubber as rubber; else backhandPlaceholder">
+                            <img [src]="rubber.avatar || 'assets/default-rubber-avatar.jpg'" [alt]="rubber.name" />
+                            <div class="selected-info">
+                                <span class="brand-badge">{{ rubber.brand }}</span>
+                                <span class="item-name">{{ rubber.name }}</span>
+                            </div>
+                        </ng-container>
+                        <ng-template #backhandPlaceholder>
+                            <span class="placeholder-text">Sélectionner un revêtement...</span>
+                        </ng-template>
+                        <span class="dropdown-chevron">▼</span>
                     </button>
-                    <span class="equipment-empty" *ngIf="rubbers.length === 0">Aucun revêtement disponible</span>
+
+                    <div class="equipment-dropdown-menu" *ngIf="rubberDropdownOpen === 'backhand'">
+                        <div class="dropdown-search">
+                            <input
+                                    type="text"
+                                    placeholder="Rechercher..."
+                                    [(ngModel)]="backhandSearchQuery"
+                                    name="backhandSearch"
+                                    (click)="$event.stopPropagation()"
+                            />
+                        </div>
+                        <div class="dropdown-list">
+                            <button
+                                    type="button"
+                                    class="equipment-option"
+                                    *ngFor="let rubber of filteredBackhandRubbers"
+                                    (click)="selectRubber('backhand', rubber)"
+                                    [class.selected]="rubber.id === createPlayerCommand.backhandRubberId"
+                            >
+                                <img [src]="rubber.avatar || 'assets/default-rubber-avatar.jpg'" [alt]="rubber.name" />
+                                <div class="option-details">
+                                    <span class="option-brand">{{ rubber.brand }}</span>
+                                    <span class="option-name">{{ rubber.name }}</span>
+                                </div>
+                            </button>
+                            <span class="equipment-empty" *ngIf="filteredBackhandRubbers.length === 0">
+                Aucun résultat
+              </span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <button type="submit" class="btn-spotify" [disabled]="isSubmitting">
-            {{ isSubmitting ? 'Enregistrement...' : 'Ajouter le joueur' }}
+        <!-- Bouton Soumettre -->
+        <button type="submit" class="btn-spotify" [disabled]="isSubmitting || isLoading">
+            <span *ngIf="isSubmitting" class="spinner"></span>
+            <span>{{ isSubmitting ? 'Enregistrement en cours...' : 'Ajouter le joueur' }}</span>
         </button>
     </form>
 </div>

@@ -1,13 +1,13 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, OnDestroy, ViewChild, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Subscription, forkJoin } from 'rxjs';
 import { PlayerService } from '../../services/player.service';
 import { CreatePlayerCommand } from '../../model/player';
 import { Blade } from '../../model/blade';
 import { Rubber } from '../../model/rubber';
 import { BladeService } from '../../services/blade.service';
 import { RubberService } from '../../services/rubber.service';
-import { forkJoin } from 'rxjs';
 
 @Component({
     selector: 'app-player-admin',
@@ -16,17 +16,28 @@ import { forkJoin } from 'rxjs';
     templateUrl: './player-admin.component.html',
     styleUrl: './player-admin.component.scss',
 })
-export class PlayerAdminComponent implements OnInit {
+export class PlayerAdminComponent implements OnInit, OnDestroy {
     @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
     createPlayerCommand: CreatePlayerCommand = this.getEmptyPlayerCommand();
     imagePlayerPreviewUrl: string | null = null;
     blades: Blade[] = [];
     rubbers: Rubber[] = [];
+
+    // Recherche dans les dropdowns
+    bladeSearchQuery = '';
+    forehandSearchQuery = '';
+    backhandSearchQuery = '';
+
     error: string | null = null;
+    successMessage: string | null = null;
     isSubmitting = false;
+    isLoading = true;
+
     isBladeDropdownOpen = false;
     rubberDropdownOpen: 'forehand' | 'backhand' | null = null;
+
+    private subscription = new Subscription();
 
     constructor(
         private playerService: PlayerService,
@@ -35,13 +46,36 @@ export class PlayerAdminComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        forkJoin({
-            blades: this.bladeService.getAllBlades(),
-            rubbers: this.rubberService.getAllRubbers(),
-        }).subscribe({
-            next: ({ blades, rubbers }) => { this.blades = blades; this.rubbers = rubbers; },
-            error: () => { this.error = 'Impossible de charger les équipements disponibles.'; },
-        });
+        this.subscription.add(
+            forkJoin({
+                blades: this.bladeService.getAllBlades(),
+                rubbers: this.rubberService.getAllRubbers(),
+            }).subscribe({
+                next: ({ blades, rubbers }) => {
+                    this.blades = blades;
+                    this.rubbers = rubbers;
+                    this.isLoading = false;
+                },
+                error: () => {
+                    this.error = 'Impossible de charger les équipements disponibles.';
+                    this.isLoading = false;
+                },
+            })
+        );
+    }
+
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
+        this.revokePreviewUrl();
+    }
+
+    // Fermer les dropdowns si clic à l'extérieur
+    @HostListener('document:click', ['$event'])
+    onDocumentClick(event: MouseEvent): void {
+        const target = event.target as HTMLElement;
+        if (!target.closest('.equipment-dropdown')) {
+            this.closeAllDropdowns();
+        }
     }
 
     private getEmptyPlayerCommand(): CreatePlayerCommand {
@@ -60,34 +94,74 @@ export class PlayerAdminComponent implements OnInit {
         const input = event.target as HTMLInputElement;
         if (input.files && input.files.length > 0) {
             const file = input.files[0];
+            this.revokePreviewUrl();
             this.createPlayerCommand.avatar = file;
             this.imagePlayerPreviewUrl = URL.createObjectURL(file);
         }
     }
 
-    get selectedBlade(): Blade | undefined {
-        return this.blades.find(blade => blade.id === this.createPlayerCommand.bladeId);
+    removeAvatar(event: Event): void {
+        event.stopPropagation();
+        this.revokePreviewUrl();
+        this.createPlayerCommand.avatar = null;
+        if (this.fileInput) this.fileInput.nativeElement.value = '';
     }
 
+    setHandedness(value: 'RIGHT' | 'LEFT'): void {
+        this.createPlayerCommand.handedness = value;
+    }
+
+    // Getters pour les sélectionnées
+    get selectedBlade(): Blade | undefined {
+        return this.blades.find((b) => b.id === this.createPlayerCommand.bladeId);
+    }
+
+    get selectedForehandRubber(): Rubber | undefined {
+        return this.rubbers.find((r) => r.id === this.createPlayerCommand.forehandRubberId);
+    }
+
+    get selectedBackhandRubber(): Rubber | undefined {
+        return this.rubbers.find((r) => r.id === this.createPlayerCommand.backhandRubberId);
+    }
+
+    // Listes filtrées pour la recherche
+    get filteredBlades(): Blade[] {
+        if (!this.bladeSearchQuery.trim()) return this.blades;
+        const q = this.bladeSearchQuery.toLowerCase();
+        return this.blades.filter((b) => `${b.brand} ${b.name}`.toLowerCase().includes(q));
+    }
+
+    get filteredForehandRubbers(): Rubber[] {
+        if (!this.forehandSearchQuery.trim()) return this.rubbers;
+        const q = this.forehandSearchQuery.toLowerCase();
+        return this.rubbers.filter((r) => `${r.brand} ${r.name}`.toLowerCase().includes(q));
+    }
+
+    get filteredBackhandRubbers(): Rubber[] {
+        if (!this.backhandSearchQuery.trim()) return this.rubbers;
+        const q = this.backhandSearchQuery.toLowerCase();
+        return this.rubbers.filter((r) => `${r.brand} ${r.name}`.toLowerCase().includes(q));
+    }
+
+    // Toggles & Selection
     toggleBladeDropdown(): void {
-        this.isBladeDropdownOpen = !this.isBladeDropdownOpen;
+        const nextState = !this.isBladeDropdownOpen;
+        this.closeAllDropdowns();
+        this.isBladeDropdownOpen = nextState;
+        this.bladeSearchQuery = '';
+    }
+
+    toggleRubberDropdown(side: 'forehand' | 'backhand'): void {
+        const nextState = this.rubberDropdownOpen === side ? null : side;
+        this.closeAllDropdowns();
+        this.rubberDropdownOpen = nextState;
+        this.forehandSearchQuery = '';
+        this.backhandSearchQuery = '';
     }
 
     selectBlade(blade: Blade): void {
         this.createPlayerCommand.bladeId = blade.id;
         this.isBladeDropdownOpen = false;
-    }
-
-    get selectedForehandRubber(): Rubber | undefined {
-        return this.rubbers.find(rubber => rubber.id === this.createPlayerCommand.forehandRubberId);
-    }
-
-    get selectedBackhandRubber(): Rubber | undefined {
-        return this.rubbers.find(rubber => rubber.id === this.createPlayerCommand.backhandRubberId);
-    }
-
-    toggleRubberDropdown(side: 'forehand' | 'backhand'): void {
-        this.rubberDropdownOpen = this.rubberDropdownOpen === side ? null : side;
     }
 
     selectRubber(side: 'forehand' | 'backhand', rubber: Rubber): void {
@@ -96,6 +170,11 @@ export class PlayerAdminComponent implements OnInit {
         } else {
             this.createPlayerCommand.backhandRubberId = rubber.id;
         }
+        this.rubberDropdownOpen = null;
+    }
+
+    private closeAllDropdowns(): void {
+        this.isBladeDropdownOpen = false;
         this.rubberDropdownOpen = null;
     }
 
@@ -109,26 +188,38 @@ export class PlayerAdminComponent implements OnInit {
             !this.createPlayerCommand.forehandRubberId ||
             !this.createPlayerCommand.backhandRubberId
         ) {
-            this.error = 'Tous les champs ainsi que la photo d’avatar sont requis.';
+            this.error = 'Veuillez remplir tous les champs et ajouter une photo.';
+            this.successMessage = null;
             return;
         }
 
         this.error = null;
         this.isSubmitting = true;
+
         this.playerService.createPlayer(this.createPlayerCommand).subscribe({
-            next: () => { this.isSubmitting = false; this.resetForm(); },
-            error: () => { this.isSubmitting = false; this.error = "Erreur lors de l'ajout du joueur."; },
+            next: () => {
+                this.isSubmitting = false;
+                this.successMessage = 'Joueur créé avec succès !';
+                this.resetForm();
+            },
+            error: () => {
+                this.isSubmitting = false;
+                this.error = "Une erreur est survenue lors de l'ajout du joueur.";
+            },
         });
     }
 
     private resetForm(): void {
         this.createPlayerCommand = this.getEmptyPlayerCommand();
-        this.isBladeDropdownOpen = false;
-        this.rubberDropdownOpen = null;
+        this.closeAllDropdowns();
+        this.revokePreviewUrl();
+        if (this.fileInput) this.fileInput.nativeElement.value = '';
+    }
+
+    private revokePreviewUrl(): void {
         if (this.imagePlayerPreviewUrl) {
             URL.revokeObjectURL(this.imagePlayerPreviewUrl);
             this.imagePlayerPreviewUrl = null;
         }
-        if (this.fileInput) this.fileInput.nativeElement.value = '';
     }
 }
