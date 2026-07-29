@@ -24,7 +24,7 @@ export class BladeService {
     createBlade(command: CreateBladeCommand): Observable<Blade> {
         const formData = new FormData();
         formData.append('name', command.name);
-        formData.append('forname', command.brand);
+        formData.append('brand', command.brand);
         formData.append('avatar', command.avatar, command.avatar.name);
 
         return this.http.post<Blade>(this.apiUrl, formData);
