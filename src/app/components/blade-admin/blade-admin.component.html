@@ -40,7 +40,22 @@
         </div>
 
         <button type="submit" class="btn-spotify" [disabled]="isSubmitting">
-            {{ isSubmitting ? 'Enregistrement...' : 'Ajouter le bois' }}
+            {{ isSubmitting ? 'Enregistrement...' : (editingId ? 'Modifier le bois' : 'Ajouter le bois') }}
         </button>
     </form>
+
+    <section class="admin-items-section">
+        <h2>Bois existants</h2>
+        <div class="admin-items-list" *ngIf="blades.length; else noBlades">
+            <div class="admin-item" *ngFor="let blade of blades" (click)="startEdit(blade)" tabindex="0" role="button">
+                <img [src]="blade.avatar || 'assets/default-blade-avatar.png'" [alt]="blade.name" />
+                <div class="admin-item-content">
+                    <strong>{{ blade.brand }} {{ blade.name }}</strong>
+                    <span *ngIf="blade.information">{{ blade.information }}</span>
+                </div>
+                <button type="button" class="admin-item-delete" (click)="deleteBlade($event, blade)" aria-label="Supprimer le bois">&#128465;</button>
+            </div>
+        </div>
+        <ng-template #noBlades><p class="admin-empty-state">Aucun bois enregistre.</p></ng-template>
+    </section>
 </div>

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Subscription, forkJoin } from 'rxjs';
 import { PlayerService } from '../../services/player.service';
-import { CreatePlayerCommand } from '../../model/player';
+import { CreatePlayerCommand, Player } from '../../model/player';
 import { Blade } from '../../model/blade';
 import { Rubber } from '../../model/rubber';
 import { BladeService } from '../../services/blade.service';
@@ -24,6 +24,8 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
     imagePlayerPreviewUrl: string | null = null;
     blades: Blade[] = [];
     rubbers: Rubber[] = [];
+    players: Player[] = [];
+    editingId: number | null = null;
 
     // Recherche dans les dropdowns
     bladeSearchQuery = '';
@@ -53,10 +55,12 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
             forkJoin({
                 blades: this.bladeService.getAllBlades(),
                 rubbers: this.rubberService.getAllRubbers(),
+                players: this.playerService.getAllPlayers(),
             }).subscribe({
-                next: ({ blades, rubbers }) => {
+                next: ({ blades, rubbers, players }) => {
                     this.blades = blades;
                     this.rubbers = rubbers;
+                    this.players = players;
                     this.isLoading = false;
                 },
                 error: () => {
@@ -158,7 +162,6 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
         if (
             !this.createPlayerCommand.name ||
             !this.createPlayerCommand.forname ||
-            !this.createPlayerCommand.avatar ||
             !this.createPlayerCommand.handedness ||
             !this.createPlayerCommand.countryCode
         ) {
@@ -217,6 +220,8 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
             !this.createPlayerCommand.forname ||
             !this.createPlayerCommand.avatar ||
             !this.createPlayerCommand.handedness ||
+            !this.createPlayerCommand.countryCode ||
+            (!this.createPlayerCommand.avatar && !this.editingId) ||
             !this.createPlayerCommand.bladeId ||
             !this.createPlayerCommand.forehandRubberId ||
             !this.createPlayerCommand.backhandRubberId
@@ -229,16 +234,61 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
         this.error = null;
         this.isSubmitting = true;
 
-        this.playerService.createPlayer(this.createPlayerCommand).subscribe({
+        const request = this.editingId
+            ? this.playerService.updatePlayer(this.editingId, this.createPlayerCommand)
+            : this.playerService.createPlayer(this.createPlayerCommand);
+
+        request.subscribe({
             next: () => {
                 this.isSubmitting = false;
-                this.successMessage = 'Joueur créé avec succès !';
+                this.successMessage = this.editingId ? 'Joueur modifie avec succes !' : 'Joueur cree avec succes !';
                 this.resetForm();
+                this.loadPlayers();
             },
             error: () => {
                 this.isSubmitting = false;
                 this.error = "Une erreur est survenue lors de l'ajout du joueur.";
             },
+        });
+    }
+
+    private loadPlayers(): void {
+        this.playerService.getAllPlayers().subscribe({
+            next: (players) => this.players = players,
+            error: () => this.error = 'Impossible de charger les joueurs.',
+        });
+    }
+
+    startEdit(player: Player): void {
+        this.editingId = player.id;
+        this.createPlayerCommand = {
+            name: player.name,
+            forname: player.forname,
+            avatar: null,
+            information: player.information || '',
+            countryCode: player.countryCode,
+            handedness: player.handedness,
+            bladeId: player.blade.id,
+            forehandRubberId: player.forehandRubber.id,
+            backhandRubberId: player.backhandRubber.id,
+        };
+        this.imagePlayerPreviewUrl = player.avatar;
+        this.currentStep = 1;
+        this.error = null;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    cancelEdit(): void { this.resetForm(); }
+
+    deletePlayer(event: Event, player: Player): void {
+        event.stopPropagation();
+        if (!confirm('Supprimer le joueur - ' + player.forname + ' ' + player.name + ' ?')) return;
+        this.playerService.deletePlayer(player.id).subscribe({
+            next: () => {
+                if (this.editingId === player.id) this.resetForm();
+                this.loadPlayers();
+            },
+            error: () => this.error = 'Impossible de supprimer ce joueur.',
         });
     }
 
@@ -251,7 +301,7 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
     }
 
     private revokePreviewUrl(): void {
-        if (this.imagePlayerPreviewUrl) {
+        if (this.imagePlayerPreviewUrl && this.imagePlayerPreviewUrl.startsWith('blob:')) {
             URL.revokeObjectURL(this.imagePlayerPreviewUrl);
             this.imagePlayerPreviewUrl = null;
         }

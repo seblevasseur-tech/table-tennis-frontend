@@ -38,7 +38,22 @@
         </div>
 
         <button type="submit" class="btn-spotify" [disabled]="isSubmitting">
-            {{ isSubmitting ? 'Enregistrement...' : 'Ajouter le revêtement' }}
+            {{ isSubmitting ? 'Enregistrement...' : (editingId ? 'Modifier le revetement' : 'Ajouter le revetement') }}
         </button>
     </form>
+
+    <section class="admin-items-section">
+        <h2>Revetements existants</h2>
+        <div class="admin-items-list" *ngIf="rubbers.length; else noRubbers">
+            <div class="admin-item" *ngFor="let rubber of rubbers" (click)="startEdit(rubber)" tabindex="0" role="button">
+                <img [src]="rubber.avatar || 'assets/default-rubber-avatar.png'" [alt]="rubber.name" />
+                <div class="admin-item-content">
+                    <strong>{{ rubber.brand }} {{ rubber.name }}</strong>
+                    <span *ngIf="rubber.information">{{ rubber.information }}</span>
+                </div>
+                <button type="button" class="admin-item-delete" (click)="deleteRubber($event, rubber)" aria-label="Supprimer le revetement">&#128465;</button>
+            </div>
+        </div>
+        <ng-template #noRubbers><p class="admin-empty-state">Aucun revetement enregistre.</p></ng-template>
+    </section>
 </div>

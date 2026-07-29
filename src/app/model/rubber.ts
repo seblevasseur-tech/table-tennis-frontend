@@ -9,6 +9,6 @@ export interface Rubber {
 export interface CreateRubberCommand {
     name: string;
     brand: string;
-    avatar: File;
+    avatar: File | null;
     information: string;
 }

@@ -9,6 +9,6 @@ export interface Blade {
 export interface CreateBladeCommand {
     name: string;
     brand: string;
-    avatar: File;
+    avatar: File | null;
     information: string;
 }
