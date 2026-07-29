@@ -1,3 +1,6 @@
+import type { Blade } from './blade';
+import type { Rubber } from './rubber';
+
 export interface Player {
     id: number;
     name: string;
@@ -5,9 +8,9 @@ export interface Player {
     avatar: string | null;
     information: string | null;
     handedness: Handedness;
-    blade: BladeSummary;
-    forehandRubber: RubberSummary;
-    backhandRubber: RubberSummary;
+    blade: Blade;
+    forehandRubber: Rubber;
+    backhandRubber: Rubber;
 }
 
 export interface CreatePlayerCommand {

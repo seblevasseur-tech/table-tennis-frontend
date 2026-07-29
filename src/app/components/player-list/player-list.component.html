@@ -4,7 +4,7 @@
 </div>
 
 <div class="players-grid" *ngIf="players.length > 0; else noPlayers">
-    <div class="player-card" *ngFor="let player of players">
+    <a class="player-card" *ngFor="let player of players" [routerLink]="['/players', player.id]" aria-label="Voir le détail de {{ player.forname }} {{ player.name }}">
         <div class="card-avatar">
             <img [src]="player.avatar || 'assets/default-player-avatar.jpg'" [alt]="player.name" />
         </div>
@@ -12,7 +12,7 @@
         <div class="card-info">
             <h3 class="player-name">{{ player.forname }} {{ player.name }}</h3>
         </div>
-    </div>
+    </a>
 </div>
 
 <ng-template #noPlayers>

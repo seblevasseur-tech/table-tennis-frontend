@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { PlayerService } from '../../services/player.service';
 import {Player} from "../../model/player";
 
 @Component({
   selector: 'app-player-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './player-list.component.html',
   styleUrl: './player-list.component.scss',
 })
