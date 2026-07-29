@@ -293,7 +293,8 @@ textarea:focus {
 .simple-admin-page .avatar-picker img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  background: var(--color-surface-raised);
 }
 
 .simple-admin-page .avatar-overlay {
@@ -436,7 +437,7 @@ textarea:focus {
   width: 100%;
   height: 100%;
   border-radius: 10px;
-  object-fit: cover;
+  object-fit: contain;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
@@ -609,7 +610,7 @@ textarea:focus {
   height: 144px;
   flex: 0 0 144px;
   border-radius: 16px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .detail-eyebrow {
@@ -689,7 +690,8 @@ textarea:focus {
 .equipment-detail-card > img {
   width: 100%;
   height: 180px;
-  object-fit: cover;
+  object-fit: contain;
+  background: var(--color-surface-raised);
 }
 
 .equipment-detail-card > div {
@@ -760,7 +762,8 @@ textarea:focus {
   height: 160px;
   flex: 0 0 160px;
   border-radius: 14px;
-  object-fit: cover;
+  object-fit: contain;
+  background: var(--color-surface-raised);
 }
 
 .equipment-hero h1 {
@@ -900,7 +903,7 @@ $text-secondary: #a7a7a7;
     img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
 
     .avatar-overlay {
@@ -1066,7 +1069,7 @@ $text-secondary: #a7a7a7;
       width: 36px;
       height: 36px;
       border-radius: 6px;
-      object-fit: cover;
+      object-fit: contain;
     }
 
     .selected-info {
@@ -1169,7 +1172,7 @@ $text-secondary: #a7a7a7;
         width: 32px;
         height: 32px;
         border-radius: 4px;
-        object-fit: cover;
+        object-fit: contain;
       }
 
       .option-details {
