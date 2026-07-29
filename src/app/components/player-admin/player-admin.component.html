@@ -8,7 +8,8 @@
             <label class="avatar-picker" title="Choisir une photo">
                 <img [src]="imagePlayerPreviewUrl || 'assets/default-player-avatar.jpg'" alt="Aperçu avatar" />
                 <div class="avatar-overlay">📷</div>
-                <input type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
+                <!-- Ajout de #fileInput -->
+                <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
             </label>
             <span class="avatar-hint">Cliquez pour ajouter une photo</span>
         </div>

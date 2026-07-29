@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {CreateRubberCommand} from "../../model/rubber";
-import {RubberService} from "../../services/rubber.service";
+import { RubberService } from '../../services/rubber.service';
+import { CreateRubberCommand } from '../../model/rubber';
 
 @Component({
     selector: 'app-rubber-admin',
@@ -12,6 +12,8 @@ import {RubberService} from "../../services/rubber.service";
     styleUrl: './rubber-admin.component.scss',
 })
 export class RubberAdminComponent {
+    @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+
     createRubberCommand: CreateRubberCommand = this.getEmptyRubberCommand();
     imageRubberPreviewUrl: string | null = null;
 
@@ -67,6 +69,9 @@ export class RubberAdminComponent {
         if (this.imageRubberPreviewUrl) {
             URL.revokeObjectURL(this.imageRubberPreviewUrl);
             this.imageRubberPreviewUrl = null;
+        }
+        if (this.fileInput) {
+            this.fileInput.nativeElement.value = '';
         }
     }
 }

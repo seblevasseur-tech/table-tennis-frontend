@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PlayerService } from '../../services/player.service';
@@ -12,6 +12,8 @@ import { CreatePlayerCommand } from "../../model/player";
     styleUrl: './player-admin.component.scss',
 })
 export class PlayerAdminComponent {
+    @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+
     createPlayerCommand: CreatePlayerCommand = this.getEmptyPlayerCommand();
     imagePlayerPreviewUrl: string | null = null;
 
@@ -55,7 +57,7 @@ export class PlayerAdminComponent {
         this.playerService.createPlayer(this.createPlayerCommand).subscribe({
             next: () => {
                 this.isSubmitting = false;
-                this.resetForm(); // <--- Remet le formulaire à zéro
+                this.resetForm();
             },
             error: () => {
                 this.isSubmitting = false;
@@ -69,6 +71,9 @@ export class PlayerAdminComponent {
         if (this.imagePlayerPreviewUrl) {
             URL.revokeObjectURL(this.imagePlayerPreviewUrl);
             this.imagePlayerPreviewUrl = null;
+        }
+        if (this.fileInput) {
+            this.fileInput.nativeElement.value = '';
         }
     }
 }
