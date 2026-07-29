@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {CreateBladeCommand} from "../../model/blade";
-import {BladeService} from "../../services/blade.service";
+import { CreateBladeCommand } from "../../model/blade";
+import { BladeService } from "../../services/blade.service";
 
 @Component({
     selector: 'app-blade-admin',
@@ -12,6 +12,9 @@ import {BladeService} from "../../services/blade.service";
     styleUrl: './blade-admin.component.scss',
 })
 export class BladeAdminComponent {
+    // Référence vers le champ HTML type="file"
+    @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+
     createBladeCommand: CreateBladeCommand = this.getEmptyBladeCommand();
     imageBladePreviewUrl: string | null = null;
 
@@ -19,7 +22,6 @@ export class BladeAdminComponent {
     isSubmitting = false;
 
     constructor(private bladeService: BladeService) {}
-
 
     private getEmptyBladeCommand(): CreateBladeCommand {
         return {
@@ -54,7 +56,7 @@ export class BladeAdminComponent {
         this.bladeService.createBlade(this.createBladeCommand).subscribe({
             next: () => {
                 this.isSubmitting = false;
-                this.resetForm(); // <--- Remet le formulaire à zéro
+                this.resetForm();
             },
             error: () => {
                 this.isSubmitting = false;
@@ -65,9 +67,15 @@ export class BladeAdminComponent {
 
     private resetForm(): void {
         this.createBladeCommand = this.getEmptyBladeCommand();
+
         if (this.imageBladePreviewUrl) {
             URL.revokeObjectURL(this.imageBladePreviewUrl);
             this.imageBladePreviewUrl = null;
+        }
+
+        // Réinitialise la valeur native du champ fichier HTML
+        if (this.fileInput) {
+            this.fileInput.nativeElement.value = '';
         }
     }
 }

@@ -8,7 +8,7 @@
             <label class="avatar-picker" title="Choisir une photo">
                 <img [src]="imageBladePreviewUrl || 'assets/default-blade-avatar.png'" alt="Aperçu avatar" />
                 <div class="avatar-overlay">📷</div>
-                <input type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
+                <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
             </label>
             <span class="avatar-hint">Cliquez pour ajouter une photo</span>
         </div>
@@ -16,12 +16,14 @@
         <div class="card-inputs">
             <div class="input-group">
                 <label>Marque</label>
-                <input type="text" name="name" placeholder="ex: Butterfly" [(ngModel)]="createBladeCommand.brand" required />
+                <!-- Correction : name="brand" -->
+                <input type="text" name="brand" placeholder="ex: Butterfly" [(ngModel)]="createBladeCommand.brand" required />
             </div>
 
             <div class="input-group">
                 <label>Nom</label>
-                <input type="text" name="forname" placeholder="ex: Franziska ZLC" [(ngModel)]="createBladeCommand.name" required />
+                <!-- Correction : name="name" -->
+                <input type="text" name="name" placeholder="ex: Franziska ZLC" [(ngModel)]="createBladeCommand.name" required />
             </div>
         </div>
 
