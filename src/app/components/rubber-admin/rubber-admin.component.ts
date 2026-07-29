@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
 import {CreateRubberCommand} from "../../model/rubber";
 import {RubberService} from "../../services/rubber.service";
 
@@ -19,10 +18,7 @@ export class RubberAdminComponent {
     error: string | null = null;
     isSubmitting = false;
 
-    constructor(
-        private rubberService: RubberService,
-        private router: Router
-    ) {}
+    constructor(private rubberService: RubberService) {}
 
     private getEmptyRubberCommand(): CreateRubberCommand {
         return {
@@ -57,13 +53,20 @@ export class RubberAdminComponent {
         this.rubberService.createRubber(this.createRubberCommand).subscribe({
             next: () => {
                 this.isSubmitting = false;
-                // Redirection vers la liste publique après ajout réussi
-                // this.router.navigate(['/players']);
+                this.resetForm();
             },
             error: () => {
                 this.isSubmitting = false;
                 this.error = "Erreur lors de l'ajout du revêtement.";
             },
         });
+    }
+
+    private resetForm(): void {
+        this.createRubberCommand = this.getEmptyRubberCommand();
+        if (this.imageRubberPreviewUrl) {
+            URL.revokeObjectURL(this.imageRubberPreviewUrl);
+            this.imageRubberPreviewUrl = null;
+        }
     }
 }

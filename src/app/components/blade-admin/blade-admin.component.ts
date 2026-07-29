@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
 import {CreateBladeCommand} from "../../model/blade";
 import {BladeService} from "../../services/blade.service";
 
@@ -19,10 +18,7 @@ export class BladeAdminComponent {
     error: string | null = null;
     isSubmitting = false;
 
-    constructor(
-        private bladeService: BladeService,
-        private router: Router
-    ) {}
+    constructor(private bladeService: BladeService) {}
 
 
     private getEmptyBladeCommand(): CreateBladeCommand {
@@ -55,18 +51,23 @@ export class BladeAdminComponent {
         this.error = null;
         this.isSubmitting = true;
 
-        console.log("addBlade");
-        console.log(this.createBladeCommand);
         this.bladeService.createBlade(this.createBladeCommand).subscribe({
             next: () => {
                 this.isSubmitting = false;
-                // Redirection vers la liste publique après ajout réussi
-                // this.router.navigate(['/players']);
+                this.resetForm(); // <--- Remet le formulaire à zéro
             },
             error: () => {
                 this.isSubmitting = false;
                 this.error = "Erreur lors de l'ajout du bois.";
             },
         });
+    }
+
+    private resetForm(): void {
+        this.createBladeCommand = this.getEmptyBladeCommand();
+        if (this.imageBladePreviewUrl) {
+            URL.revokeObjectURL(this.imageBladePreviewUrl);
+            this.imageBladePreviewUrl = null;
+        }
     }
 }
