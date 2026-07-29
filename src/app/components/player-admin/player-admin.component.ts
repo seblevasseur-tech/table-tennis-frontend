@@ -36,7 +36,7 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
     successMessage: string | null = null;
     isSubmitting = false;
     isLoading = true;
-    countries = COUNTRIES;
+    countries = [...COUNTRIES].sort((a, b) => a.name.localeCompare(b.name, 'fr'));
 
     isBladeDropdownOpen = false;
     isCountryDropdownOpen = false;

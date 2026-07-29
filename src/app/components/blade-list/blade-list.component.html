@@ -9,7 +9,6 @@
         <div class="catalog-search-control">
             <span class="catalog-search-icon" aria-hidden="true">&#128269;</span>
             <input id="blade-name-search" type="text" [(ngModel)]="nameSearchTerm" placeholder="Rechercher un bois..." />
-            <button type="button" class="catalog-search-clear" *ngIf="nameSearchTerm" (click)="nameSearchTerm = ''" aria-label="Effacer la recherche">x</button>
         </div>
     </div>
     <div class="catalog-search">
@@ -17,7 +16,6 @@
         <div class="catalog-search-control">
             <span class="catalog-search-icon" aria-hidden="true">&#128269;</span>
             <input id="blade-brand-search" type="text" [(ngModel)]="brandSearchTerm" placeholder="Rechercher une marque..." />
-            <button type="button" class="catalog-search-clear" *ngIf="brandSearchTerm" (click)="brandSearchTerm = ''" aria-label="Effacer la recherche">x</button>
         </div>
     </div>
 </div>

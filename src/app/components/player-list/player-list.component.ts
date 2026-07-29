@@ -18,7 +18,7 @@ export class PlayerListComponent implements OnInit {
   error: string | null = null;
   nameSearchTerm = '';
   countryFilter = '';
-  countries = COUNTRIES;
+  countries = [...COUNTRIES].sort((a, b) => a.name.localeCompare(b.name, 'fr'));
   isCountryDropdownOpen = false;
 
   constructor(private playerService: PlayerService) {}
