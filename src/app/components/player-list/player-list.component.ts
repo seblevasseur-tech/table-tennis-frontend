@@ -16,23 +16,21 @@ import { COUNTRIES } from '../../model/country';
 export class PlayerListComponent implements OnInit {
   players: Player[] = [];
   error: string | null = null;
-  searchTerm = '';
+  nameSearchTerm = '';
+  countryFilter = '';
+  countries = COUNTRIES;
 
   constructor(private playerService: PlayerService) {}
 
   get filteredPlayers(): Player[] {
-    const query = this.searchTerm.trim().toLowerCase();
-    if (!query) return this.players;
+    const nameQuery = this.nameSearchTerm.trim().toLowerCase();
     return this.players.filter((player) => {
-      const country = COUNTRIES.find((item) => item.code === player.countryCode);
-      return [player.forname, player.name, player.countryCode, country?.name || '']
-        .join(' ')
-        .toLowerCase()
-        .includes(query);
+      const matchesName = !nameQuery ||
+        (player.forname + ' ' + player.name).toLowerCase().includes(nameQuery);
+      const matchesCountry = !this.countryFilter || player.countryCode === this.countryFilter;
+      return matchesName && matchesCountry;
     });
   }
-
-
 
   ngOnInit(): void {
     this.loadPlayers();

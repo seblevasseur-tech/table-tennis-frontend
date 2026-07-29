@@ -15,17 +15,19 @@ import { Blade } from '../../model/blade';
 export class BladeListComponent implements OnInit {
     blades: Blade[] = [];
     error: string | null = null;
-    searchTerm = '';
+    nameSearchTerm = '';
+    brandSearchTerm = '';
 
     constructor(private bladeService: BladeService) {}
     get filteredBlades(): Blade[] {
-        const query = this.searchTerm.trim().toLowerCase();
-        if (!query) return this.blades;
-        return this.blades.filter((blade) =>
-            (blade.brand + ' ' + blade.name).toLowerCase().includes(query)
-        );
+        const nameQuery = this.nameSearchTerm.trim().toLowerCase();
+        const brandQuery = this.brandSearchTerm.trim().toLowerCase();
+        return this.blades.filter((blade) => {
+            const matchesName = !nameQuery || blade.name.toLowerCase().includes(nameQuery);
+            const matchesBrand = !brandQuery || blade.brand.toLowerCase().includes(brandQuery);
+            return matchesName && matchesBrand;
+        });
     }
-
 
 
     ngOnInit(): void {

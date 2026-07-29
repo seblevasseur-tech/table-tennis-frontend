@@ -3,12 +3,21 @@
     {{ error }}
 </div>
 
-<div class="catalog-search">
-    <label for="player-search">Rechercher un joueur</label>
-    <div class="catalog-search-control">
-        <span class="catalog-search-icon" aria-hidden="true">&#128269;</span>
-        <input id="player-search" type="search" [(ngModel)]="searchTerm" placeholder="Nom, prenom ou pays..." />
-        <button type="button" class="catalog-search-clear" *ngIf="searchTerm" (click)="searchTerm = ''" aria-label="Effacer la recherche">x</button>
+<div class="catalog-search-grid">
+    <div class="catalog-search">
+        <label for="player-name-search">Nom ou prenom</label>
+        <div class="catalog-search-control">
+            <span class="catalog-search-icon" aria-hidden="true">&#128269;</span>
+            <input id="player-name-search" type="search" [(ngModel)]="nameSearchTerm" placeholder="Rechercher un joueur..." />
+            <button type="button" class="catalog-search-clear" *ngIf="nameSearchTerm" (click)="nameSearchTerm = ''" aria-label="Effacer la recherche">x</button>
+        </div>
+    </div>
+    <div class="catalog-search">
+        <label for="player-country-filter">Pays</label>
+        <select id="player-country-filter" class="catalog-filter-select" [(ngModel)]="countryFilter">
+            <option value="">Tous les pays</option>
+            <option *ngFor="let country of countries" [value]="country.code">{{ country.name }}</option>
+        </select>
     </div>
 </div>
 
@@ -25,6 +34,6 @@
 </div>
 
 <ng-template #noPlayers>
-    <p class="no-players">{{ searchTerm ? "Aucun joueur ne correspond a cette recherche." : "Aucun joueur enregistre pour le moment." }}</p>
+    <p class="no-players">{{ (nameSearchTerm || countryFilter) ? "Aucun joueur ne correspond a ces filtres." : "Aucun joueur enregistre pour le moment." }}</p>
 </ng-template>
 </div>

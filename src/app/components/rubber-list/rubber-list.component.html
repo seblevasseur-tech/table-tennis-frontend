@@ -3,12 +3,22 @@
     {{ error }}
 </div>
 
-<div class="catalog-search">
-    <label for="rubber-search">Rechercher un revetement</label>
-    <div class="catalog-search-control">
-        <span class="catalog-search-icon" aria-hidden="true">&#128269;</span>
-        <input id="rubber-search" type="search" [(ngModel)]="searchTerm" placeholder="Nom ou marque..." />
-        <button type="button" class="catalog-search-clear" *ngIf="searchTerm" (click)="searchTerm = ''" aria-label="Effacer la recherche">x</button>
+<div class="catalog-search-grid">
+    <div class="catalog-search">
+        <label for="rubber-name-search">Nom</label>
+        <div class="catalog-search-control">
+            <span class="catalog-search-icon" aria-hidden="true">&#128269;</span>
+            <input id="rubber-name-search" type="search" [(ngModel)]="nameSearchTerm" placeholder="Rechercher un revetement..." />
+            <button type="button" class="catalog-search-clear" *ngIf="nameSearchTerm" (click)="nameSearchTerm = ''" aria-label="Effacer la recherche">x</button>
+        </div>
+    </div>
+    <div class="catalog-search">
+        <label for="rubber-brand-search">Marque</label>
+        <div class="catalog-search-control">
+            <span class="catalog-search-icon" aria-hidden="true">&#128269;</span>
+            <input id="rubber-brand-search" type="search" [(ngModel)]="brandSearchTerm" placeholder="Rechercher une marque..." />
+            <button type="button" class="catalog-search-clear" *ngIf="brandSearchTerm" (click)="brandSearchTerm = ''" aria-label="Effacer la recherche">x</button>
+        </div>
     </div>
 </div>
 
@@ -26,6 +36,6 @@
 </div>
 
 <ng-template #noRubbers>
-    <p class="no-rubbers">{{ searchTerm ? "Aucun revetement ne correspond a cette recherche." : "Aucun revetement enregistre pour le moment." }}</p>
+    <p class="no-rubbers">{{ (nameSearchTerm || brandSearchTerm) ? "Aucun revetement ne correspond a ces filtres." : "Aucun revetement enregistre pour le moment." }}</p>
 </ng-template>
 </div>

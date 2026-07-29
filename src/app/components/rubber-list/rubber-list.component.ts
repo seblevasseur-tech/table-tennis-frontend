@@ -15,17 +15,19 @@ import { Rubber } from '../../model/rubber';
 export class RubberListComponent implements OnInit {
     rubbers: Rubber[] = [];
     error: string | null = null;
-    searchTerm = '';
+    nameSearchTerm = '';
+    brandSearchTerm = '';
 
     constructor(private rubberService: RubberService) {}
     get filteredRubbers(): Rubber[] {
-        const query = this.searchTerm.trim().toLowerCase();
-        if (!query) return this.rubbers;
-        return this.rubbers.filter((rubber) =>
-            (rubber.brand + ' ' + rubber.name).toLowerCase().includes(query)
-        );
+        const nameQuery = this.nameSearchTerm.trim().toLowerCase();
+        const brandQuery = this.brandSearchTerm.trim().toLowerCase();
+        return this.rubbers.filter((rubber) => {
+            const matchesName = !nameQuery || rubber.name.toLowerCase().includes(nameQuery);
+            const matchesBrand = !brandQuery || rubber.brand.toLowerCase().includes(brandQuery);
+            return matchesName && matchesBrand;
+        });
     }
-
 
 
     ngOnInit(): void {

@@ -3,12 +3,22 @@
     {{ error }}
 </div>
 
-<div class="catalog-search">
-    <label for="blade-search">Rechercher un bois</label>
-    <div class="catalog-search-control">
-        <span class="catalog-search-icon" aria-hidden="true">&#128269;</span>
-        <input id="blade-search" type="search" [(ngModel)]="searchTerm" placeholder="Nom ou marque..." />
-        <button type="button" class="catalog-search-clear" *ngIf="searchTerm" (click)="searchTerm = ''" aria-label="Effacer la recherche">x</button>
+<div class="catalog-search-grid">
+    <div class="catalog-search">
+        <label for="blade-name-search">Nom</label>
+        <div class="catalog-search-control">
+            <span class="catalog-search-icon" aria-hidden="true">&#128269;</span>
+            <input id="blade-name-search" type="search" [(ngModel)]="nameSearchTerm" placeholder="Rechercher un bois..." />
+            <button type="button" class="catalog-search-clear" *ngIf="nameSearchTerm" (click)="nameSearchTerm = ''" aria-label="Effacer la recherche">x</button>
+        </div>
+    </div>
+    <div class="catalog-search">
+        <label for="blade-brand-search">Marque</label>
+        <div class="catalog-search-control">
+            <span class="catalog-search-icon" aria-hidden="true">&#128269;</span>
+            <input id="blade-brand-search" type="search" [(ngModel)]="brandSearchTerm" placeholder="Rechercher une marque..." />
+            <button type="button" class="catalog-search-clear" *ngIf="brandSearchTerm" (click)="brandSearchTerm = ''" aria-label="Effacer la recherche">x</button>
+        </div>
     </div>
 </div>
 
@@ -26,6 +36,6 @@
 </div>
 
 <ng-template #noBlades>
-    <p class="no-blades">{{ searchTerm ? "Aucun bois ne correspond a cette recherche." : "Aucun bois enregistre pour le moment." }}</p>
+    <p class="no-blades">{{ (nameSearchTerm || brandSearchTerm) ? "Aucun bois ne correspond a ces filtres." : "Aucun bois enregistre pour le moment." }}</p>
 </ng-template>
 </div>
