@@ -1,4 +1,8 @@
 <div class="admin-container simple-admin-page">
+    <header class="form-header">
+        <h1>{{ editingId ? 'Modifier le bois' : 'Nouveau bois' }}</h1>
+        <p>{{ editingId ? 'Modifiez les informations de ce bois' : 'Ajoutez un bois et ses informations techniques' }}</p>
+    </header>
     <div class="error-message" *ngIf="error">
         {{ error }}
     </div>
