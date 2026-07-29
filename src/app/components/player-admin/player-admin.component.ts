@@ -48,7 +48,6 @@ export class PlayerAdminComponent implements OnInit {
         return {
             name: '',
             forname: '',
-            rating: null as any,
             avatar: null,
             handedness: null,
             bladeId: null,
@@ -104,7 +103,6 @@ export class PlayerAdminComponent implements OnInit {
         if (
             !this.createPlayerCommand.name ||
             !this.createPlayerCommand.forname ||
-            !this.createPlayerCommand.rating ||
             !this.createPlayerCommand.avatar ||
             !this.createPlayerCommand.handedness ||
             !this.createPlayerCommand.bladeId ||

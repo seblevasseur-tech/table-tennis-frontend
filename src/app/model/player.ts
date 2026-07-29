@@ -12,7 +12,6 @@ export interface Player {
 export interface CreatePlayerCommand {
     name: string;
     forname: string;
-    rating: number;
     avatar: File | null;
     handedness: Handedness | null;
     bladeId: number | null;
