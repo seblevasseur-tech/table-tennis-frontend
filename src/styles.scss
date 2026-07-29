@@ -126,8 +126,8 @@ app-root {
 
     .sidebar-toggle {
       display: grid;
-      width: 32px;
-      height: 32px;
+      width: 44px;
+      height: 44px;
       margin-left: auto;
       padding: 0;
       place-items: center;
@@ -135,7 +135,7 @@ app-root {
       border-radius: 8px;
       background: transparent;
       color: var(--color-text-secondary);
-      font-size: 1.4rem;
+      font-size: 2rem;
       line-height: 1;
       transition: color 0.2s ease, background 0.2s ease;
 
@@ -176,14 +176,14 @@ app-root {
   }
 
   &.is-collapsed {
-    width: 72px;
-    flex-basis: 72px;
+    width: 88px;
+    flex-basis: 88px;
     padding-right: 10px;
     padding-left: 10px;
 
     .logo { justify-content: center; padding-left: 0; }
-    .logo .icon { font-size: 1.4rem; }
-    .logo .sidebar-toggle { margin-left: 4px; }
+    .logo .icon { font-size: 1.5rem; }
+    .logo .sidebar-toggle { width: 48px; height: 48px; margin-left: 4px; }
     .nav-section-title, .nav-label { display: none; }
     .nav-item { justify-content: center; padding-right: 8px; padding-left: 8px; }
   }
@@ -441,6 +441,7 @@ app-root {
 }
 
 .catalog-list-page .play-btn,
+.catalog-list-page .info-btn,
 .catalog-list-page .paddle-btn {
   position: absolute;
   right: 8px;
@@ -450,6 +451,7 @@ app-root {
   height: 40px;
   padding: 0;
   place-items: center;
+  border: 0;
   border-radius: 50%;
   background: var(--color-primary);
   color: #000;
@@ -458,15 +460,48 @@ app-root {
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.catalog-list-page .paddle-btn {
+.catalog-list-page .info-btn {
+  width: 42px;
+  height: 42px;
+  background: transparent;
+  color: var(--color-primary);
+  font-size: 1.8rem;
+  line-height: 1;
   opacity: 1;
   transform: none;
+  box-shadow: none;
+}
+
+.catalog-list-page .info-btn:hover {
+  background: transparent;
+  color: var(--color-primary-dark);
+  transform: scale(1.12);
+}
+
+.catalog-list-page .paddle-btn {
+  width: 48px;
+  height: 48px;
+  background: transparent;
+  color: var(--color-primary);
+  font-size: 2rem;
+  line-height: 1;
+  opacity: 1;
+  transform: none;
+  box-shadow: none;
+}
+
+.catalog-list-page .paddle-btn:hover {
+  background: transparent;
+  color: var(--color-primary-dark);
+  transform: scale(1.12);
 }
 
 .catalog-list-page .player-card:hover .play-btn,
 .catalog-list-page .player-card:hover .paddle-btn,
 .catalog-list-page .blade-card:hover .play-btn,
-.catalog-list-page .rubber-card:hover .play-btn {
+.catalog-list-page .blade-card:hover .info-btn,
+.catalog-list-page .rubber-card:hover .play-btn,
+.catalog-list-page .rubber-card:hover .info-btn {
   opacity: 1;
   transform: translateY(0);
 }

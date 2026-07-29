@@ -7,7 +7,7 @@
     <div class="blade-card" *ngFor="let blade of blades">
         <div class="card-avatar">
             <img [src]="blade.avatar || 'assets/default-blade-avatar.png'" [alt]="blade.name" />
-            <button class="play-btn" title="Voir la fiche">▶</button>
+            <button class="info-btn" type="button" title="Voir les informations techniques du bois" aria-label="Voir les informations techniques du bois">ⓘ</button>
         </div>
 
         <div class="card-info">
