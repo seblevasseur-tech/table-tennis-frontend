@@ -8,7 +8,7 @@
         <label for="blade-name-search">Nom</label>
         <div class="catalog-search-control">
             <span class="catalog-search-icon" aria-hidden="true">&#128269;</span>
-            <input id="blade-name-search" type="search" [(ngModel)]="nameSearchTerm" placeholder="Rechercher un bois..." />
+            <input id="blade-name-search" type="text" [(ngModel)]="nameSearchTerm" placeholder="Rechercher un bois..." />
             <button type="button" class="catalog-search-clear" *ngIf="nameSearchTerm" (click)="nameSearchTerm = ''" aria-label="Effacer la recherche">x</button>
         </div>
     </div>
@@ -16,7 +16,7 @@
         <label for="blade-brand-search">Marque</label>
         <div class="catalog-search-control">
             <span class="catalog-search-icon" aria-hidden="true">&#128269;</span>
-            <input id="blade-brand-search" type="search" [(ngModel)]="brandSearchTerm" placeholder="Rechercher une marque..." />
+            <input id="blade-brand-search" type="text" [(ngModel)]="brandSearchTerm" placeholder="Rechercher une marque..." />
             <button type="button" class="catalog-search-clear" *ngIf="brandSearchTerm" (click)="brandSearchTerm = ''" aria-label="Effacer la recherche">x</button>
         </div>
     </div>

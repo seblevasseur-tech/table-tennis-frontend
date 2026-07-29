@@ -8,7 +8,7 @@
         <label for="player-name-search">Nom ou prenom</label>
         <div class="catalog-search-control">
             <span class="catalog-search-icon" aria-hidden="true">&#128269;</span>
-            <input id="player-name-search" type="search" [(ngModel)]="nameSearchTerm" placeholder="Rechercher un joueur..." />
+            <input id="player-name-search" type="text" [(ngModel)]="nameSearchTerm" placeholder="Rechercher un joueur..." />
             <button type="button" class="catalog-search-clear" *ngIf="nameSearchTerm" (click)="nameSearchTerm = ''" aria-label="Effacer la recherche">x</button>
         </div>
     </div>
