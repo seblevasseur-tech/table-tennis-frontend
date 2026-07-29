@@ -6,7 +6,7 @@
     <form class="add-card" (ngSubmit)="addRubber()">
         <div class="avatar-upload-top">
             <label class="avatar-picker" title="Choisir une photo">
-                <img [src]="imageRubberPreviewUrl || 'assets/default-rubber-avatar.jpg'" alt="Aperçu avatar" />
+                <img [src]="imageRubberPreviewUrl || 'assets/default-rubber-avatar.png'" alt="Aperçu avatar" />
                 <div class="avatar-overlay">📷</div>
                 <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
             </label>

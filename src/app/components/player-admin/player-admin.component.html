@@ -192,7 +192,7 @@
                             (click)="toggleRubberDropdown('forehand')"
                     >
                         <ng-container *ngIf="selectedForehandRubber as rubber; else forehandPlaceholder">
-                            <img [src]="rubber.avatar || 'assets/default-rubber-avatar.jpg'" [alt]="rubber.name" />
+                            <img [src]="rubber.avatar || 'assets/default-rubber-avatar.png'" [alt]="rubber.name" />
                             <div class="selected-info">
                                 <span class="brand-badge">{{ rubber.brand }}</span>
                                 <span class="item-name">{{ rubber.name }}</span>
@@ -222,7 +222,7 @@
                                     (click)="selectRubber('forehand', rubber)"
                                     [class.selected]="rubber.id === createPlayerCommand.forehandRubberId"
                             >
-                                <img [src]="rubber.avatar || 'assets/default-rubber-avatar.jpg'" [alt]="rubber.name" />
+                                <img [src]="rubber.avatar || 'assets/default-rubber-avatar.png'" [alt]="rubber.name" />
                                 <div class="option-details">
                                     <span class="option-brand">{{ rubber.brand }}</span>
                                     <span class="option-name">{{ rubber.name }}</span>
@@ -247,7 +247,7 @@
                             (click)="toggleRubberDropdown('backhand')"
                     >
                         <ng-container *ngIf="selectedBackhandRubber as rubber; else backhandPlaceholder">
-                            <img [src]="rubber.avatar || 'assets/default-rubber-avatar.jpg'" [alt]="rubber.name" />
+                            <img [src]="rubber.avatar || 'assets/default-rubber-avatar.png'" [alt]="rubber.name" />
                             <div class="selected-info">
                                 <span class="brand-badge">{{ rubber.brand }}</span>
                                 <span class="item-name">{{ rubber.name }}</span>
@@ -277,7 +277,7 @@
                                     (click)="selectRubber('backhand', rubber)"
                                     [class.selected]="rubber.id === createPlayerCommand.backhandRubberId"
                             >
-                                <img [src]="rubber.avatar || 'assets/default-rubber-avatar.jpg'" [alt]="rubber.name" />
+                                <img [src]="rubber.avatar || 'assets/default-rubber-avatar.png'" [alt]="rubber.name" />
                                 <div class="option-details">
                                     <span class="option-brand">{{ rubber.brand }}</span>
                                     <span class="option-name">{{ rubber.name }}</span>

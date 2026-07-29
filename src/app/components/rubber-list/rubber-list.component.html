@@ -6,7 +6,7 @@
 <div class="rubbers-grid" *ngIf="rubbers.length > 0; else noRubbers">
     <div class="rubber-card" *ngFor="let rubber of rubbers">
         <div class="card-avatar">
-            <img [src]="rubber.avatar || 'assets/default-rubber-avatar.jpg'" [alt]="rubber.name" />
+            <img [src]="rubber.avatar || 'assets/default-rubber-avatar.png'" [alt]="rubber.name" />
         </div>
 
         <div class="card-info">
