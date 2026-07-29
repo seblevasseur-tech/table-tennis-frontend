@@ -98,6 +98,10 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
         };
     }
 
+    getCountry(code: string | null): Country | undefined {
+        return this.countries.find((country) => country.code === code);
+    }
+
     autoResize(event: Event): void {
         const textarea = event.target as HTMLTextAreaElement;
         textarea.style.height = 'auto';

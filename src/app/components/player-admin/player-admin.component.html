@@ -90,6 +90,10 @@
                         {{ country.flag }} {{ country.name }}
                     </option>
                 </select>
+                <span class="country-selection-preview" *ngIf="getCountry(createPlayerCommand.countryCode) as selectedCountry">
+                    <span class="country-flag" role="img" [attr.aria-label]="selectedCountry.name">{{ selectedCountry.flag }}</span>
+                    <span>{{ selectedCountry.name }}</span>
+                </span>
             </div>
 
             <!-- Main dominante (Segmented Switch UX) -->
@@ -317,7 +321,15 @@
                 <img [src]="player.avatar || 'assets/default-player-avatar.png'" [alt]="player.forname + ' ' + player.name" />
                 <div class="admin-item-content">
                     <strong>{{ player.forname }} {{ player.name }}</strong>
-                    <span>{{ player.countryCode }} - {{ player.handedness === 'RIGHT' ? 'Droitier' : 'Gaucher' }}</span>
+                    <span class="admin-player-meta">
+                        <span class="country-display">
+                            <span class="country-flag" role="img" [attr.aria-label]="getCountry(player.countryCode)?.name || player.countryCode">
+                                {{ getCountry(player.countryCode)?.flag || '&#127760;' }}
+                            </span>
+                            <span>{{ getCountry(player.countryCode)?.name || player.countryCode }}</span>
+                        </span>
+                        <span>{{ player.handedness === 'RIGHT' ? 'Droitier' : 'Gaucher' }}</span>
+                    </span>
                 </div>
                 <button type="button" class="admin-item-delete" (click)="deletePlayer($event, player)" aria-label="Supprimer le joueur">&#128465;</button>
             </div>

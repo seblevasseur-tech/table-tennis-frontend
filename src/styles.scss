@@ -1569,3 +1569,43 @@ $text-secondary: #a7a7a7;
     grid-template-columns: 1fr;
   }
 }
+
+
+.country-display,
+.admin-player-meta,
+.country-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+}
+
+.admin-player-meta {
+  flex-wrap: wrap;
+  gap: .35rem .8rem;
+}
+
+.country-flag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.35rem;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  font-size: 1.25rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.country-badge .country-flag {
+  font-size: 1.1rem;
+}
+
+
+.country-selection-preview {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  margin-top: -2px;
+  color: var(--color-text-secondary);
+  font-size: .85rem;
+  font-weight: 600;
+}
