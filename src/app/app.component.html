@@ -1,41 +1,50 @@
-<div class="spotify-layout">
+<div class="spotify-layout" [class.sidebar-collapsed]="isSidebarCollapsed">
     <!-- Sidebar Navigation -->
-    <aside class="sidebar">
+    <aside class="sidebar" [class.is-collapsed]="isSidebarCollapsed">
         <div class="logo">
             <span class="icon">🏓</span>
+            <button
+                    type="button"
+                    class="sidebar-toggle"
+                    (click)="toggleSidebar()"
+                    [attr.aria-label]="isSidebarCollapsed ? 'Déplier le menu' : 'Replier le menu'"
+                    [attr.aria-expanded]="!isSidebarCollapsed"
+            >
+                {{ isSidebarCollapsed ? '›' : '‹' }}
+            </button>
         </div>
 
         <nav class="nav-menu">
-            <a routerLink="/players" routerLinkActive="active" class="nav-item">
+            <a routerLink="/players" routerLinkActive="active" class="nav-item" (click)="closeSidebarOnMobile()">
                 <span class="nav-icon">👥</span>
-                <span>Joueurs</span>
+                <span class="nav-label">Joueurs</span>
             </a>
 
-            <a routerLink="/blades" routerLinkActive="active" class="nav-item">
+            <a routerLink="/blades" routerLinkActive="active" class="nav-item" (click)="closeSidebarOnMobile()">
                 <span class="nav-icon">👥</span>
-                <span>Bois</span>
+                <span class="nav-label">Bois</span>
             </a>
 
-            <a routerLink="/rubbers" routerLinkActive="active" class="nav-item">
+            <a routerLink="/rubbers" routerLinkActive="active" class="nav-item" (click)="closeSidebarOnMobile()">
                 <span class="nav-icon">👥</span>
-                <span>Revêtements</span>
+                <span class="nav-label">Revêtements</span>
             </a>
 
             <div class="nav-section-title">Administration</div>
 
-            <a routerLink="/admin/players" routerLinkActive="active" class="nav-item">
+            <a routerLink="/admin/players" routerLinkActive="active" class="nav-item" (click)="closeSidebarOnMobile()">
                 <span class="nav-icon">➕</span>
-                <span>Ajouter des joueurs</span>
+                <span class="nav-label">Ajouter des joueurs</span>
             </a>
 
-            <a routerLink="/admin/blades" routerLinkActive="active" class="nav-item">
+            <a routerLink="/admin/blades" routerLinkActive="active" class="nav-item" (click)="closeSidebarOnMobile()">
                 <span class="nav-icon">➕</span>
-                <span>Ajouter des bois</span>
+                <span class="nav-label">Ajouter des bois</span>
             </a>
 
-            <a routerLink="/admin/rubbers" routerLinkActive="active" class="nav-item">
+            <a routerLink="/admin/rubbers" routerLinkActive="active" class="nav-item" (click)="closeSidebarOnMobile()">
                 <span class="nav-icon">➕</span>
-                <span>Ajouter des revêtements</span>
+                <span class="nav-label">Ajouter des revêtements</span>
             </a>
         </nav>
     </aside>

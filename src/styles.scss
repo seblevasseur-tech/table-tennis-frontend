@@ -123,6 +123,24 @@ app-root {
 
     .icon { font-size: 1.6rem; }
     .title { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.5px; }
+
+    .sidebar-toggle {
+      display: grid;
+      width: 32px;
+      height: 32px;
+      margin-left: auto;
+      padding: 0;
+      place-items: center;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--color-text-secondary);
+      font-size: 1.4rem;
+      line-height: 1;
+      transition: color 0.2s ease, background 0.2s ease;
+
+      &:hover { background: var(--color-surface-raised); color: var(--color-text); }
+    }
   }
 
   .nav-menu {
@@ -156,6 +174,19 @@ app-root {
       .nav-icon { font-size: 1.1rem; }
     }
   }
+
+  &.is-collapsed {
+    width: 72px;
+    flex-basis: 72px;
+    padding-right: 10px;
+    padding-left: 10px;
+
+    .logo { justify-content: center; padding-left: 0; }
+    .logo .icon { font-size: 1.4rem; }
+    .logo .sidebar-toggle { margin-left: 4px; }
+    .nav-section-title, .nav-label { display: none; }
+    .nav-item { justify-content: center; padding-right: 8px; padding-left: 8px; }
+  }
 }
 
 .main-content {
@@ -168,18 +199,26 @@ app-root {
 }
 
 @media (max-width: 760px) {
-  .spotify-layout { display: block; padding: 0; }
-  .sidebar {
-    width: 100%;
-    padding: 12px;
-    border-radius: 0;
+  .spotify-layout { gap: 0; padding: 0; }
 
-    .logo { margin-bottom: 12px; }
-    .nav-menu { flex-direction: row; flex-wrap: wrap; gap: 4px; }
-    .nav-section-title { display: none; }
-    .nav-item { gap: 6px; padding: 8px; font-size: 0.8rem; }
+  .sidebar {
+    min-height: 100vh;
+    border-radius: 0;
+    transition: width 0.2s ease, flex-basis 0.2s ease, padding 0.2s ease;
+
+    &:not(.is-collapsed) {
+      width: min(260px, 82vw);
+      flex-basis: min(260px, 82vw);
+    }
+
+    .logo { margin-bottom: 24px; }
   }
-  .main-content { min-height: calc(100vh - 94px); padding: var(--spacing-lg) var(--spacing-md); border-radius: 0; }
+
+  .main-content {
+    min-height: 100vh;
+    padding: var(--spacing-lg) var(--spacing-md);
+    border-radius: 0;
+  }
 }
 
 /* Composants partagés : formulaires d'administration et catalogues. */
@@ -401,7 +440,8 @@ app-root {
   text-transform: uppercase;
 }
 
-.catalog-list-page .play-btn {
+.catalog-list-page .play-btn,
+.catalog-list-page .paddle-btn {
   position: absolute;
   right: 8px;
   bottom: 8px;
@@ -418,7 +458,13 @@ app-root {
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
+.catalog-list-page .paddle-btn {
+  opacity: 1;
+  transform: none;
+}
+
 .catalog-list-page .player-card:hover .play-btn,
+.catalog-list-page .player-card:hover .paddle-btn,
 .catalog-list-page .blade-card:hover .play-btn,
 .catalog-list-page .rubber-card:hover .play-btn {
   opacity: 1;
