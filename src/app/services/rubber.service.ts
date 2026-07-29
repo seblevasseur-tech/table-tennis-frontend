@@ -27,6 +27,7 @@ export class RubberService {
         formData.append('brand', command.brand);
         formData.append('avatar', command.avatar, command.avatar.name);
 
+        console.log(formData);
         return this.http.post<Rubber>(this.apiUrl, formData);
     }
 

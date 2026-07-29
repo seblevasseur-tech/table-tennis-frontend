@@ -27,6 +27,7 @@ export class BladeService {
         formData.append('brand', command.brand);
         formData.append('avatar', command.avatar, command.avatar.name);
 
+        console.log(formData);
         return this.http.post<Blade>(this.apiUrl, formData);
     }
 
