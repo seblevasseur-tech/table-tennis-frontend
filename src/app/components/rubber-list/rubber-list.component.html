@@ -3,8 +3,17 @@
     {{ error }}
 </div>
 
-<div class="rubbers-grid" *ngIf="rubbers.length > 0; else noRubbers">
-    <a class="rubber-card" *ngFor="let rubber of rubbers" [routerLink]="['/rubbers', rubber.id]" [attr.aria-label]="'Voir le détail de ' + rubber.brand + ' ' + rubber.name">
+<div class="catalog-search">
+    <label for="rubber-search">Rechercher un revetement</label>
+    <div class="catalog-search-control">
+        <span class="catalog-search-icon" aria-hidden="true">&#128269;</span>
+        <input id="rubber-search" type="search" [(ngModel)]="searchTerm" placeholder="Nom ou marque..." />
+        <button type="button" class="catalog-search-clear" *ngIf="searchTerm" (click)="searchTerm = ''" aria-label="Effacer la recherche">x</button>
+    </div>
+</div>
+
+<div class="rubbers-grid" *ngIf="filteredRubbers.length > 0; else noRubbers">
+    <a class="rubber-card" *ngFor="let rubber of filteredRubbers" [routerLink]="['/rubbers', rubber.id]" [attr.aria-label]="'Voir le détail de ' + rubber.brand + ' ' + rubber.name">
         <div class="card-avatar">
             <img [src]="rubber.avatar || 'assets/default-rubber-avatar.png'" [alt]="rubber.name" />
         </div>
@@ -17,6 +26,6 @@
 </div>
 
 <ng-template #noRubbers>
-    <p class="no-rubbers">Aucun revêtement enregistré pour le moment.</p>
+    <p class="no-rubbers">{{ searchTerm ? "Aucun revetement ne correspond a cette recherche." : "Aucun revetement enregistre pour le moment." }}</p>
 </ng-template>
 </div>

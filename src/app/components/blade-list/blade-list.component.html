@@ -3,8 +3,17 @@
     {{ error }}
 </div>
 
-<div class="blades-grid" *ngIf="blades.length > 0; else noBlades">
-    <a class="blade-card" *ngFor="let blade of blades" [routerLink]="['/blades', blade.id]" [attr.aria-label]="'Voir le détail de ' + blade.brand + ' ' + blade.name">
+<div class="catalog-search">
+    <label for="blade-search">Rechercher un bois</label>
+    <div class="catalog-search-control">
+        <span class="catalog-search-icon" aria-hidden="true">&#128269;</span>
+        <input id="blade-search" type="search" [(ngModel)]="searchTerm" placeholder="Nom ou marque..." />
+        <button type="button" class="catalog-search-clear" *ngIf="searchTerm" (click)="searchTerm = ''" aria-label="Effacer la recherche">x</button>
+    </div>
+</div>
+
+<div class="blades-grid" *ngIf="filteredBlades.length > 0; else noBlades">
+    <a class="blade-card" *ngFor="let blade of filteredBlades" [routerLink]="['/blades', blade.id]" [attr.aria-label]="'Voir le détail de ' + blade.brand + ' ' + blade.name">
         <div class="card-avatar">
             <img [src]="blade.avatar || 'assets/default-blade-avatar.png'" [alt]="blade.name" />
         </div>
@@ -17,6 +26,6 @@
 </div>
 
 <ng-template #noBlades>
-    <p class="no-blades">Aucun bois enregistré pour le moment.</p>
+    <p class="no-blades">{{ searchTerm ? "Aucun bois ne correspond a cette recherche." : "Aucun bois enregistre pour le moment." }}</p>
 </ng-template>
 </div>
