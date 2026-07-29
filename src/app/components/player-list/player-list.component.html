@@ -7,7 +7,6 @@
     <div class="player-card" *ngFor="let player of players">
         <div class="card-avatar">
             <img [src]="player.avatar || 'assets/default-player-avatar.jpg'" [alt]="player.name" />
-            <button class="paddle-btn" type="button" title="Voir la raquette" aria-label="Voir la raquette">🏓</button>
         </div>
 
         <div class="card-info">
