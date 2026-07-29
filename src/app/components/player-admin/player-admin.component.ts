@@ -36,7 +36,6 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
     successMessage: string | null = null;
     isSubmitting = false;
     isLoading = true;
-    currentStep = 1;
     countries = COUNTRIES;
 
     isBladeDropdownOpen = false;
@@ -158,26 +157,6 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
         return this.rubbers.filter((r) => `${r.brand} ${r.name}`.toLowerCase().includes(q));
     }
 
-    nextStep(): void {
-        if (
-            !this.createPlayerCommand.name ||
-            !this.createPlayerCommand.forname ||
-            !this.createPlayerCommand.handedness ||
-            !this.createPlayerCommand.countryCode
-        ) {
-            this.error = 'Complétez le profil avant de continuer.';
-            this.successMessage = null;
-            return;
-        }
-
-        this.error = null;
-        this.currentStep = 2;
-    }
-
-    previousStep(): void {
-        this.error = null;
-        this.currentStep = 1;
-    }
 
     // Toggles & Selection
     toggleBladeDropdown(): void {
@@ -273,7 +252,6 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
             backhandRubberId: player.backhandRubber.id,
         };
         this.imagePlayerPreviewUrl = player.avatar;
-        this.currentStep = 1;
         this.error = null;
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -294,7 +272,6 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
 
     private resetForm(): void {
         this.createPlayerCommand = this.getEmptyPlayerCommand();
-        this.currentStep = 1;
         this.closeAllDropdowns();
         this.revokePreviewUrl();
         if (this.fileInput) this.fileInput.nativeElement.value = '';

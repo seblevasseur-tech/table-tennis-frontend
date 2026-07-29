@@ -1364,3 +1364,208 @@ $text-secondary: #a7a7a7;
   .admin-item { padding: .65rem; gap: .7rem; }
   .admin-item > img { width: 48px; height: 48px; flex-basis: 48px; }
 }
+
+
+/* UX admin compact : une seule vue, grille type catalogue moderne. */
+.player-admin-page.admin-container {
+  width: min(100%, 1120px);
+  max-width: 1120px;
+  padding: 18px 20px 32px;
+}
+
+.player-admin-page .form-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.player-admin-page .form-header h1 {
+  margin: 0;
+  font-size: clamp(1.35rem, 2vw, 1.8rem);
+}
+
+.player-admin-page .form-header p {
+  margin: 0;
+  font-size: .85rem;
+}
+
+.player-admin-page .admin-form {
+  display: grid;
+  grid-template-columns: minmax(280px, .85fr) minmax(420px, 1.15fr);
+  align-items: start;
+  gap: 14px;
+}
+
+.player-admin-page .form-card {
+  min-width: 0;
+  padding: 18px;
+  gap: 14px;
+  border-radius: 14px;
+}
+
+.player-admin-page .form-card .card-title {
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+.player-admin-page .avatar-upload-container {
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 14px;
+}
+
+.player-admin-page .avatar-upload-container .avatar-picker {
+  width: 76px;
+  height: 76px;
+  flex: 0 0 76px;
+}
+
+.player-admin-page .avatar-upload-container .btn-remove-avatar {
+  padding: 5px 8px;
+}
+
+.player-admin-page .input-group {
+  gap: 5px;
+}
+
+.player-admin-page .input-group label {
+  font-size: .72rem;
+}
+
+.player-admin-page .input-group input[type='text'],
+.player-admin-page .input-group > select {
+  padding: 9px 11px;
+  font-size: .88rem;
+}
+
+.player-admin-page .segmented-control {
+  padding: 3px;
+  gap: 3px;
+}
+
+.player-admin-page .segmented-control .segmented-btn {
+  padding: 8px 6px;
+  font-size: .82rem;
+}
+
+.player-admin-page .equipment-dropdown-trigger {
+  min-height: 54px;
+  padding: 7px 10px;
+}
+
+.player-admin-page .equipment-dropdown-trigger img {
+  width: 38px;
+  height: 38px;
+}
+
+.player-admin-page .equipment-dropdown-menu .dropdown-list {
+  max-height: 180px;
+}
+
+.player-admin-page .information-group textarea {
+  min-height: 68px;
+}
+
+.player-admin-page .form-card:nth-of-type(3),
+.player-admin-page .step-actions-submit {
+  grid-column: 1 / -1;
+}
+
+.player-admin-page .step-actions-submit {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0;
+}
+
+.player-admin-page .step-actions-submit .btn-spotify {
+  width: min(100%, 280px);
+  padding: 12px 18px;
+}
+
+.player-admin-page .admin-items-section {
+  width: 100%;
+  margin-top: 18px;
+}
+
+.simple-admin-page {
+  width: min(100%, 820px);
+  padding: 18px 20px 32px;
+}
+
+.simple-admin-page .add-card {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  align-items: center;
+  gap: 14px 20px;
+  padding: 18px;
+  border-radius: 14px;
+}
+
+.simple-admin-page .avatar-upload-top {
+  grid-row: span 2;
+}
+
+.simple-admin-page .card-inputs {
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.simple-admin-page .information-group,
+.simple-admin-page .add-card > .btn-spotify {
+  grid-column: 1 / -1;
+}
+
+.simple-admin-page .information-group textarea {
+  min-height: 64px;
+}
+
+.simple-admin-page .add-card > .btn-spotify {
+  width: min(100%, 280px);
+  justify-self: end;
+  padding: 11px 18px;
+}
+
+@media (max-width: 760px) {
+  .player-admin-page .form-header {
+    display: block;
+  }
+
+  .player-admin-page .form-header p {
+    margin-top: 4px;
+  }
+
+  .player-admin-page .admin-form {
+    grid-template-columns: 1fr;
+  }
+
+  .player-admin-page .form-card:nth-of-type(3),
+  .player-admin-page .step-actions-submit {
+    grid-column: auto;
+  }
+
+  .player-admin-page .step-actions-submit .btn-spotify,
+  .simple-admin-page .add-card > .btn-spotify {
+    width: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .simple-admin-page .add-card {
+    grid-template-columns: 1fr;
+  }
+
+  .simple-admin-page .avatar-upload-top,
+  .simple-admin-page .information-group,
+  .simple-admin-page .add-card > .btn-spotify {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .simple-admin-page .card-inputs {
+    grid-template-columns: 1fr;
+  }
+}
