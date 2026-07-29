@@ -1,0 +1,22 @@
+<div class="equipment-page">
+    <a routerLink="/rubbers" class="back-link">← Retour</a>
+
+    <div class="detail-state" *ngIf="isLoading">Chargement...</div>
+    <div class="detail-state detail-error" *ngIf="!isLoading && error">{{ error }}</div>
+
+    <ng-container *ngIf="!isLoading && item as equipment">
+        <header class="equipment-hero">
+            <img [src]="equipment.avatar || 'assets/default-rubber-avatar.jpg'" [alt]="equipment.name" />
+            <div>
+                <span class="detail-eyebrow">Revêtement</span>
+                <h1>{{ equipment.brand }} {{ equipment.name }}</h1>
+            </div>
+        </header>
+
+        <section class="detail-card">
+            <h2>Informations techniques</h2>
+            <p *ngIf="equipment.information; else noInformation">{{ equipment.information }}</p>
+            <ng-template #noInformation><p class="muted">Aucune information technique.</p></ng-template>
+        </section>
+    </ng-container>
+</div>

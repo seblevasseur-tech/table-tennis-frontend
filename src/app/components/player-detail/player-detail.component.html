@@ -34,32 +34,32 @@
         <section class="detail-card">
             <h2>Équipement</h2>
             <div class="equipment-detail-grid">
-                <article class="equipment-detail-card">
+                <a class="equipment-detail-card" [routerLink]="['/blades', currentPlayer.blade.id]">
                     <img [src]="currentPlayer.blade.avatar || 'assets/default-blade-avatar.png'" [alt]="currentPlayer.blade.name" />
                     <div>
                         <span class="detail-eyebrow">Bois</span>
                         <h3>{{ currentPlayer.blade.brand }} {{ currentPlayer.blade.name }}</h3>
-                        <p>{{ currentPlayer.blade.information || 'Aucune information technique.' }}</p>
+                        <span class="equipment-link-hint">Voir les informations techniques →</span>
                     </div>
-                </article>
+                </a>
 
-                <article class="equipment-detail-card">
+                <a class="equipment-detail-card" [routerLink]="['/rubbers', currentPlayer.forehandRubber.id]">
                     <img [src]="currentPlayer.forehandRubber.avatar || 'assets/default-rubber-avatar.jpg'" [alt]="currentPlayer.forehandRubber.name" />
                     <div>
                         <span class="detail-eyebrow">Revêtement coup droit</span>
                         <h3>{{ currentPlayer.forehandRubber.brand }} {{ currentPlayer.forehandRubber.name }}</h3>
-                        <p>{{ currentPlayer.forehandRubber.information || 'Aucune information technique.' }}</p>
+                        <span class="equipment-link-hint">Voir les informations techniques →</span>
                     </div>
-                </article>
+                </a>
 
-                <article class="equipment-detail-card">
+                <a class="equipment-detail-card" [routerLink]="['/rubbers', currentPlayer.backhandRubber.id]">
                     <img [src]="currentPlayer.backhandRubber.avatar || 'assets/default-rubber-avatar.jpg'" [alt]="currentPlayer.backhandRubber.name" />
                     <div>
                         <span class="detail-eyebrow">Revêtement revers</span>
                         <h3>{{ currentPlayer.backhandRubber.brand }} {{ currentPlayer.backhandRubber.name }}</h3>
-                        <p>{{ currentPlayer.backhandRubber.information || 'Aucune information technique.' }}</p>
+                        <span class="equipment-link-hint">Voir les informations techniques →</span>
                     </div>
-                </article>
+                </a>
             </div>
         </section>
     </ng-container>
