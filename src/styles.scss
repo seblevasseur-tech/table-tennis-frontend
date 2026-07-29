@@ -568,7 +568,9 @@ textarea:focus {
 }
 
 /* Vue détail joueur. */
-.catalog-list-page .player-card {
+.catalog-list-page .player-card,
+.catalog-list-page .blade-card,
+.catalog-list-page .rubber-card {
   display: block;
   color: inherit;
   text-decoration: none;

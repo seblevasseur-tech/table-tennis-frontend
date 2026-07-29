@@ -15,13 +15,28 @@ export class BladeDetailComponent implements OnInit {
     item: Blade | null = null;
     isLoading = true;
     error: string | null = null;
+    returnUrl = '/blades';
+    returnLabel = 'Retour aux bois';
 
     constructor(
         private route: ActivatedRoute,
         private service: BladeService,
     ) {}
 
+    private resolveReturnContext(): void {
+        const candidate = this.route.snapshot.queryParamMap.get('returnUrl');
+
+        if (candidate?.match(/^\/players\/\d+$/)) {
+            this.returnUrl = candidate;
+            this.returnLabel = 'Retour au joueur';
+        } else if (candidate === '/blades' || candidate === '/rubbers') {
+            this.returnUrl = candidate;
+            this.returnLabel = candidate === '/blades' ? 'Retour aux bois' : 'Retour aux revêtements';
+        }
+    }
+
     ngOnInit(): void {
+        this.resolveReturnContext();
         const id = Number(this.route.snapshot.paramMap.get('id'));
         if (!id) {
             this.error = 'Bois introuvable.';

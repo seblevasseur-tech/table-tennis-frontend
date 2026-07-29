@@ -4,7 +4,7 @@
 </div>
 
 <div class="blades-grid" *ngIf="blades.length > 0; else noBlades">
-    <div class="blade-card" *ngFor="let blade of blades">
+    <a class="blade-card" *ngFor="let blade of blades" [routerLink]="['/blades', blade.id]" [attr.aria-label]="'Voir le détail de ' + blade.brand + ' ' + blade.name">
         <div class="card-avatar">
             <img [src]="blade.avatar || 'assets/default-blade-avatar.png'" [alt]="blade.name" />
         </div>
@@ -13,7 +13,7 @@
             <h3 class="blade-brand">{{ blade.brand }}</h3>
             <h3 class="blade-name">{{ blade.name }}</h3>
         </div>
-    </div>
+    </a>
 </div>
 
 <ng-template #noBlades>

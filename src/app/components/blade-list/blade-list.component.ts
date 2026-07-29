@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { BladeService } from '../../services/blade.service';
 import {Blade} from "../../model/blade";
 
 @Component({
     selector: 'app-blade-list',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, RouterLink],
     templateUrl: './blade-list.component.html',
     styleUrl: './blade-list.component.scss',
 })

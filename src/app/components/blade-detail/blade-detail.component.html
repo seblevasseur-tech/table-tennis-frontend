@@ -1,5 +1,5 @@
 <div class="equipment-page">
-    <a routerLink="/blades" class="back-link">← Retour</a>
+    <a [routerLink]="returnUrl" class="back-link">← {{ returnLabel }}</a>
 
     <div class="detail-state" *ngIf="isLoading">Chargement...</div>
     <div class="detail-state detail-error" *ngIf="!isLoading && error">{{ error }}</div>

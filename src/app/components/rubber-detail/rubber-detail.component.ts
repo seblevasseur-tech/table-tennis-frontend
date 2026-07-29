@@ -15,13 +15,28 @@ export class RubberDetailComponent implements OnInit {
     item: Rubber | null = null;
     isLoading = true;
     error: string | null = null;
+    returnUrl = '/rubbers';
+    returnLabel = 'Retour aux revêtements';
 
     constructor(
         private route: ActivatedRoute,
         private service: RubberService,
     ) {}
 
+    private resolveReturnContext(): void {
+        const candidate = this.route.snapshot.queryParamMap.get('returnUrl');
+
+        if (candidate?.match(/^\/players\/\d+$/)) {
+            this.returnUrl = candidate;
+            this.returnLabel = 'Retour au joueur';
+        } else if (candidate === '/blades' || candidate === '/rubbers') {
+            this.returnUrl = candidate;
+            this.returnLabel = candidate === '/blades' ? 'Retour aux bois' : 'Retour aux revêtements';
+        }
+    }
+
     ngOnInit(): void {
+        this.resolveReturnContext();
         const id = Number(this.route.snapshot.paramMap.get('id'));
         if (!id) {
             this.error = 'Revêtement introuvable.';

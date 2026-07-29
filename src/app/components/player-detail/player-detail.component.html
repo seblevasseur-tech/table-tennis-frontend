@@ -34,7 +34,8 @@
         <section class="detail-card">
             <h2>Équipement</h2>
             <div class="equipment-detail-grid">
-                <a class="equipment-detail-card" [routerLink]="['/blades', currentPlayer.blade.id]">
+                <a class="equipment-detail-card" [routerLink]="['/blades', currentPlayer.blade.id]"
+                        [queryParams]="{ returnUrl: '/players/' + currentPlayer.id }">
                     <img [src]="currentPlayer.blade.avatar || 'assets/default-blade-avatar.png'" [alt]="currentPlayer.blade.name" />
                     <div>
                         <span class="detail-eyebrow">Bois</span>
@@ -43,7 +44,8 @@
                     </div>
                 </a>
 
-                <a class="equipment-detail-card" [routerLink]="['/rubbers', currentPlayer.forehandRubber.id]">
+                <a class="equipment-detail-card" [routerLink]="['/rubbers', currentPlayer.forehandRubber.id]"
+                        [queryParams]="{ returnUrl: '/players/' + currentPlayer.id }}">
                     <img [src]="currentPlayer.forehandRubber.avatar || 'assets/default-rubber-avatar.jpg'" [alt]="currentPlayer.forehandRubber.name" />
                     <div>
                         <span class="detail-eyebrow">Revêtement coup droit</span>
@@ -52,7 +54,8 @@
                     </div>
                 </a>
 
-                <a class="equipment-detail-card" [routerLink]="['/rubbers', currentPlayer.backhandRubber.id]">
+                <a class="equipment-detail-card" [routerLink]="['/rubbers', currentPlayer.backhandRubber.id]"
+                        [queryParams]="{ returnUrl: '/players/' + currentPlayer.id }}">
                     <img [src]="currentPlayer.backhandRubber.avatar || 'assets/default-rubber-avatar.jpg'" [alt]="currentPlayer.backhandRubber.name" />
                     <div>
                         <span class="detail-eyebrow">Revêtement revers</span>

@@ -4,7 +4,7 @@
 </div>
 
 <div class="rubbers-grid" *ngIf="rubbers.length > 0; else noRubbers">
-    <div class="rubber-card" *ngFor="let rubber of rubbers">
+    <a class="rubber-card" *ngFor="let rubber of rubbers" [routerLink]="['/rubbers', rubber.id]" [attr.aria-label]="'Voir le détail de ' + rubber.brand + ' ' + rubber.name">
         <div class="card-avatar">
             <img [src]="rubber.avatar || 'assets/default-rubber-avatar.png'" [alt]="rubber.name" />
         </div>
@@ -13,7 +13,7 @@
             <h3 class="rubber-brand">{{ rubber.brand }}</h3>
             <h3 class="rubber-name">{{ rubber.name }}</h3>
         </div>
-    </div>
+    </a>
 </div>
 
 <ng-template #noRubbers>

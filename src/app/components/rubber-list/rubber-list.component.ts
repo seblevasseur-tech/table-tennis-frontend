@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { RubberService } from '../../services/rubber.service';
 import {Rubber} from "../../model/rubber";
 
 @Component({
     selector: 'app-rubber-list',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, RouterLink],
     templateUrl: './rubber-list.component.html',
     styleUrl: './rubber-list.component.scss',
 })
