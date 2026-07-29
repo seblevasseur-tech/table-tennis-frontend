@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PlayerService } from '../../services/player.service';
 import { Player } from '../../model/player';
-import { COUNTRIES, Country } from '../../model/country';
+import { COUNTRIES, Country, countryFlagUrl } from '../../model/country';
 
 @Component({
     selector: 'app-player-detail',
@@ -41,6 +41,10 @@ export class PlayerDetailComponent implements OnInit {
                 this.isLoading = false;
             },
         });
+    }
+
+    getCountryFlagUrl(code: string | null): string {
+        return countryFlagUrl(code);
     }
 
     get handednessLabel(): string {

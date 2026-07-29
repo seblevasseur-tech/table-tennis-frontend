@@ -91,7 +91,7 @@
                     </option>
                 </select>
                 <span class="country-selection-preview" *ngIf="getCountry(createPlayerCommand.countryCode) as selectedCountry">
-                    <span class="country-flag" role="img" [attr.aria-label]="selectedCountry.name">{{ selectedCountry.flag }}</span>
+                    <img class="country-flag" [src]="getCountryFlagUrl(selectedCountry.code)" [alt]="selectedCountry.name" />
                     <span>{{ selectedCountry.name }}</span>
                 </span>
             </div>
@@ -323,8 +323,14 @@
                     <strong>{{ player.forname }} {{ player.name }}</strong>
                     <span class="admin-player-meta">
                         <span class="country-display">
-                            <span class="country-flag" role="img" [attr.aria-label]="getCountry(player.countryCode)?.name || player.countryCode">
-                                {{ getCountry(player.countryCode)?.flag || '&#127760;' }}
+                            <img
+                                *ngIf="getCountry(player.countryCode) as playerCountry"
+                                class="country-flag"
+                                [src]="getCountryFlagUrl(playerCountry.code)"
+                                [alt]="playerCountry.name"
+                            />
+                            <span *ngIf="!getCountry(player.countryCode)" class="country-flag-fallback">
+                                {{ player.countryCode }}
                             </span>
                             <span>{{ getCountry(player.countryCode)?.name || player.countryCode }}</span>
                         </span>

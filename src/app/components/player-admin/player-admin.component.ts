@@ -8,7 +8,7 @@ import { Blade } from '../../model/blade';
 import { Rubber } from '../../model/rubber';
 import { BladeService } from '../../services/blade.service';
 import { RubberService } from '../../services/rubber.service';
-import { COUNTRIES, Country } from '../../model/country';
+import { COUNTRIES, Country, countryFlagUrl } from '../../model/country';
 
 @Component({
     selector: 'app-player-admin',
@@ -96,6 +96,10 @@ export class PlayerAdminComponent implements OnInit, OnDestroy {
             forehandRubberId: null,
             backhandRubberId: null,
         };
+    }
+
+    getCountryFlagUrl(code: string | null): string {
+        return countryFlagUrl(code);
     }
 
     getCountry(code: string | null): Country | undefined {

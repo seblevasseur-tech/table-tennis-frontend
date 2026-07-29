@@ -20,7 +20,7 @@
                 <div class="player-badges">
                     <span class="handedness-badge">{{ handednessLabel }}</span>
                     <span class="country-badge" *ngIf="country as playerCountry">
-                        <span class="country-flag" role="img" [attr.aria-label]="playerCountry.name">{{ playerCountry.flag }}</span>
+                        <img class="country-flag" [src]="getCountryFlagUrl(playerCountry.code)" [alt]="playerCountry.name" />
                         <span>{{ playerCountry.name }}</span>
                     </span>
                 </div>

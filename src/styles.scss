@@ -1588,15 +1588,24 @@ $text-secondary: #a7a7a7;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 1.35rem;
-  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
-  font-size: 1.25rem;
-  line-height: 1;
-  white-space: nowrap;
+  width: 24px;
+  height: 18px;
+  flex: 0 0 24px;
+  object-fit: cover;
+  border-radius: 2px;
+  background: #303030;
 }
 
 .country-badge .country-flag {
-  font-size: 1.1rem;
+  width: 22px;
+  height: 16px;
+  flex-basis: 22px;
+}
+
+.country-flag-fallback {
+  color: var(--color-text-secondary);
+  font-size: .75rem;
+  font-weight: 700;
 }
 
 
