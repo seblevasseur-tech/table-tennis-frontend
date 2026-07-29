@@ -1,0 +1,21 @@
+<div class="error-message" *ngIf="error">
+    {{ error }}
+</div>
+
+<div class="blades-grid" *ngIf="blades.length > 0; else noBlades">
+    <div class="blade-card" *ngFor="let blade of blades">
+        <div class="card-avatar">
+            <img [src]="blade.avatar || 'assets/default-blade-avatar.png'" [alt]="blade.name" />
+            <button class="play-btn" title="Voir la fiche">▶</button>
+        </div>
+
+        <div class="card-info">
+            <h3 class="blade-brand">{{ blade.brand }}</h3>
+            <h3 class="blade-name">{{ blade.name }}</h3>
+        </div>
+    </div>
+</div>
+
+<ng-template #noBlades>
+    <p class="no-blades">Aucun bois enregistré pour le moment.</p>
+</ng-template>

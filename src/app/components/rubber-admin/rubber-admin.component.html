@@ -1,0 +1,32 @@
+<div class="admin-container">
+    <div class="error-message" *ngIf="error">
+        {{ error }}
+    </div>
+
+    <form class="add-card" (ngSubmit)="addRubber()">
+        <div class="avatar-upload-top">
+            <label class="avatar-picker" title="Choisir une photo">
+                <img [src]="imageRubberPreviewUrl || 'assets/default-rubber-avatar.jpg'" alt="Aperçu avatar" />
+                <div class="avatar-overlay">📷</div>
+                <input type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
+            </label>
+            <span class="avatar-hint">Cliquez pour ajouter une photo</span>
+        </div>
+
+        <div class="card-inputs">
+            <div class="input-group">
+                <label>Marque</label>
+                <input type="text" name="name" placeholder="ex: Butterfly" [(ngModel)]="createRubberCommand.brand" required />
+            </div>
+
+            <div class="input-group">
+                <label>Nom</label>
+                <input type="text" name="forname" placeholder="ex: Zyre 03" [(ngModel)]="createRubberCommand.name" required />
+            </div>
+        </div>
+
+        <button type="submit" class="btn-spotify" [disabled]="isSubmitting">
+            {{ isSubmitting ? 'Enregistrement...' : 'Ajouter le revêtement' }}
+        </button>
+    </form>
+</div>

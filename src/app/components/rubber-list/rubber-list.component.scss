@@ -1,0 +1,116 @@
+.view-header {
+  margin-bottom: 28px;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0 0 6px 0;
+  }
+
+  .subtitle {
+    color: #b3b3b3;
+    margin: 0;
+    font-size: 0.95rem;
+  }
+}
+
+.error-message {
+  background-color: #7f1d1d;
+  color: #fecaca;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+/* Grille Spotify style Artistes */
+.rubbers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.rubber-card {
+  background: #181818;
+  border-radius: 8px;
+  padding: 16px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    background: #282828;
+
+    .play-btn {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .card-avatar {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    margin-bottom: 16px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%; /* Style portrait artiste circular */
+      object-fit: cover;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Bouton Play survol style Spotify */
+    .play-btn {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background-color: #1ed760;
+      border: none;
+      color: #000;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+  }
+
+  .card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    .rubber-name {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .rubber-brand {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+  }
+}
+
+.no-rubbers {
+  color: #b3b3b3;
+  margin-top: 40px;
+}

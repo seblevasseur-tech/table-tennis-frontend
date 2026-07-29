@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Player, PlayerService } from '../../services/player.service';
+import { PlayerService } from '../../services/player.service';
+import {Player} from "../../model/player";
 
 @Component({
   selector: 'app-player-list',

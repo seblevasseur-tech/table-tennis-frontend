@@ -1,8 +1,3 @@
-<div class="view-header">
-    <h1>Joueurs Enregistrés</h1>
-    <p class="subtitle">Classement mondial World Table Tennis</p>
-</div>
-
 <div class="error-message" *ngIf="error">
     {{ error }}
 </div>
@@ -10,7 +5,7 @@
 <div class="players-grid" *ngIf="players.length > 0; else noPlayers">
     <div class="player-card" *ngFor="let player of players">
         <div class="card-avatar">
-            <img [src]="player.avatar || 'assets/default-avatar.jpg'" [alt]="player.name" />
+            <img [src]="player.avatar || 'assets/default-player-avatar.jpg'" [alt]="player.name" />
             <button class="play-btn" title="Voir la fiche">▶</button>
         </div>
 

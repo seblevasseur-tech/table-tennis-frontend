@@ -3,21 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-
-export interface Player {
-  id: number;
-  name: string;
-  forname: string;
-  rating: number;
-  avatar: File;
-}
-
-export interface CreatePlayerCommand {
-  name: string;
-  forname: string;
-  rating: number;
-  avatar: File;
-}
+import {CreatePlayerCommand, Player} from "../model/player";
 
 @Injectable({
   providedIn: 'root',

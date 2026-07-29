@@ -11,7 +11,6 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
       <aside class="sidebar">
         <div class="logo">
           <span class="icon">🏓</span>
-          <span class="title">WTT Players</span>
         </div>
 
         <nav class="nav-menu">
@@ -20,11 +19,31 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
             <span>Joueurs</span>
           </a>
 
+          <a routerLink="/blades" routerLinkActive="active" class="nav-item">
+            <span class="nav-icon">👥</span>
+            <span>Bois</span>
+          </a>
+
+          <a routerLink="/rubbers" routerLinkActive="active" class="nav-item">
+            <span class="nav-icon">👥</span>
+            <span>Revêtements</span>
+          </a>
+
           <div class="nav-section-title">Administration</div>
 
-          <a routerLink="/admin/add" routerLinkActive="active" class="nav-item">
+          <a routerLink="/admin/players" routerLinkActive="active" class="nav-item">
             <span class="nav-icon">➕</span>
-            <span>Ajouter un joueur</span>
+            <span>Ajouter des joueurs</span>
+          </a>
+
+          <a routerLink="/admin/blades" routerLinkActive="active" class="nav-item">
+            <span class="nav-icon">➕</span>
+            <span>Ajouter des bois</span>
+          </a>
+
+          <a routerLink="/admin/rubbers" routerLinkActive="active" class="nav-item">
+            <span class="nav-icon">➕</span>
+            <span>Ajouter des revêtements</span>
           </a>
         </nav>
       </aside>

@@ -1,17 +1,12 @@
 <div class="admin-container">
-    <div class="form-header">
-        <h1>Espace Administration</h1>
-        <p>Ajouter un nouveau joueur à la base de données WTT</p>
-    </div>
-
     <div class="error-message" *ngIf="error">
         {{ error }}
     </div>
 
-    <form class="add-player-card" (ngSubmit)="addPlayer()">
+    <form class="add-card" (ngSubmit)="addPlayer()">
         <div class="avatar-upload-top">
             <label class="avatar-picker" title="Choisir une photo">
-                <img [src]="imagePreviewUrl || 'assets/default-avatar.jpg'" alt="Aperçu avatar" />
+                <img [src]="imagePlayerPreviewUrl || 'assets/default-player-avatar.jpg'" alt="Aperçu avatar" />
                 <div class="avatar-overlay">📷</div>
                 <input type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
             </label>
@@ -37,6 +32,64 @@
 
         <button type="submit" class="btn-spotify" [disabled]="isSubmitting">
             {{ isSubmitting ? 'Enregistrement...' : 'Ajouter le joueur' }}
+        </button>
+    </form>
+
+    <hr>
+
+    <form class="add-card" (ngSubmit)="addBlade()">
+        <div class="avatar-upload-top">
+            <label class="avatar-picker" title="Choisir une photo">
+                <img [src]="imageBladePreviewUrl || 'assets/default-blade-avatar.png'" alt="Aperçu avatar" />
+                <div class="avatar-overlay">📷</div>
+                <input type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
+            </label>
+            <span class="avatar-hint">Cliquez pour ajouter une photo</span>
+        </div>
+
+        <div class="card-inputs">
+            <div class="input-group">
+                <label>Marque</label>
+                <input type="text" name="name" placeholder="ex: Butterfly" [(ngModel)]="createBladeCommand.brand" required />
+            </div>
+
+            <div class="input-group">
+                <label>Nom</label>
+                <input type="text" name="forname" placeholder="ex: Franziska ZLC" [(ngModel)]="createBladeCommand.name" required />
+            </div>
+        </div>
+
+        <button type="submit" class="btn-spotify" [disabled]="isSubmitting">
+            {{ isSubmitting ? 'Enregistrement...' : 'Ajouter le bois' }}
+        </button>
+    </form>
+
+    <hr>
+
+    <form class="add-card" (ngSubmit)="addRubber()">
+        <div class="avatar-upload-top">
+            <label class="avatar-picker" title="Choisir une photo">
+                <img [src]="imageRubberPreviewUrl || 'assets/default-rubber-avatar.jpg'" alt="Aperçu avatar" />
+                <div class="avatar-overlay">📷</div>
+                <input type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
+            </label>
+            <span class="avatar-hint">Cliquez pour ajouter une photo</span>
+        </div>
+
+        <div class="card-inputs">
+            <div class="input-group">
+                <label>Marque</label>
+                <input type="text" name="name" placeholder="ex: Butterfly" [(ngModel)]="createRubberCommand.brand" required />
+            </div>
+
+            <div class="input-group">
+                <label>Nom</label>
+                <input type="text" name="forname" placeholder="ex: Zyre 03" [(ngModel)]="createRubberCommand.name" required />
+            </div>
+        </div>
+
+        <button type="submit" class="btn-spotify" [disabled]="isSubmitting">
+            {{ isSubmitting ? 'Enregistrement...' : 'Ajouter le revêtement' }}
         </button>
     </form>
 </div>
